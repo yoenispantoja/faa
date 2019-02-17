@@ -1,0 +1,84 @@
+<nav class="sidebar" [ngClass]="{sidebarPushRight: isActive, collapsed: collapsed}">
+    <div class="header badge badge-primary">MENÚ PRINCIPAL</div>
+    <div class="list-group">
+        <a routerLink="/dashboard" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-home text-info"></i>
+            <span>Inicio</span>
+        </a>
+        <a routerLink="/indisciplinas" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-fire text-info"></i>
+            <span>Indisciplinas</span>
+        </a>
+        <a routerLink="/sancionados" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-users text-info"></i>
+            <span>Sancionados</span>
+        </a>
+        <a [routerLink]="['/demandantes']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-user-secret text-info"></i>
+            <span>Demandantes</span>
+        </a>
+        <a [routerLink]="['/medidas']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-gavel text-info"></i>
+            <span>Medidas</span>
+        </a>
+
+
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('pages')">
+                <i class="fa fa-plus"></i>&nbsp;
+                <span>{{ 'Menu' | translate }}</span>
+            </a>
+            <li class="nested" [class.expand]="showMenu === 'pages'">
+                <ul class="submenu">
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'Submenu' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'Submenu' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'Submenu' | translate }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div>
+        <a [routerLink]="['/blank-page']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-file-o"></i>&nbsp;
+            <span>{{ 'Blank Page' | translate }}</span>
+        </a>
+
+
+    </div>
+    <div class="header badge badge-success">REPORTES</div>
+    <div class="list-group">
+        <a routerLink="/reincidentes" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-print text-success"></i>
+            <span>Reincidentes</span>
+        </a>
+        <a routerLink="/categorias-mas" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-print text-success"></i>
+            <span>Categorías críticas</span>
+        </a>
+        <a routerLink="/en-proceso" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-print text-success"></i>
+            <span>Sanciones en proceso</span>
+        </a>
+        <a routerLink="/procesadas" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-print text-success"></i>
+            <span>Sanciones procesadas</span>
+        </a>
+    </div>
+    <div class="toggle-button" [ngClass]="{collapsed: collapsed}" (click)="toggleCollapsed()">
+        <i class="fa fa-fw fa-angle-double-left"></i>
+        <span>Cerrar menú</span>
+    </div>
+</nav>

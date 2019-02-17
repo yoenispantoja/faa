@@ -1,0 +1,40 @@
+<button type="button" class="btn btn-sm btn-primary" (click)="open(content)"> <i class=" fa fa-plus-circle"></i>
+  Nuevo sancionado</button>
+<ng-template #content let-c="close" let-d="dismiss">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="modal-header bg-info text-white">
+            <h5 class="modal-title"><i class="fa fa-user"></i> Adicionar sancionado</h5>
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="">Nombre completo</label>
+                <input type="text" formControlName="nombre_completo" class="form-control" placeholder="Nombre completo" aria-describedby="helpId">
+            </div>
+            <div class="form-group">
+                <label for="">Solapin</label>
+                <input type="text" formControlName="solapin" class="form-control" placeholder="Solapin" aria-describedby="helpId">
+            </div>
+            <div class="form-group">
+                <label for="">Grupo</label>
+                <input type="text" formControlName="grupo" class="form-control" placeholder="Grupo" aria-describedby="helpId">
+            </div>
+            <div class="form-group">
+                <label for="">Obra</label>
+                <input type="text" formControlName="obra" class="form-control" placeholder="Obra" aria-describedby="helpId">
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" (click)="c('Close click')"><i class="fa fa-remove"
+    aria-hidden="true"></i>
+  Cancelar</button>
+            <button type="submit" class="btn btn-primary" [disabled]="form.invalid"><i class="fa fa-save"></i> Guardar</button>
+        </div>
+    </form>
+</ng-template>
+
+<swal #confirmSwal title="Información" text="Registro almacenado" type="success" [showCancelButton]="false" [focusCancel]="true" (confirm)="cerrarVentana()">
+</swal>
