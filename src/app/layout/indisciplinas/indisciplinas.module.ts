@@ -8,7 +8,7 @@ import { IndisciplinasRoutingModule } from './indisciplinas-routing.module';
 import { IndisciplinasComponent } from './indisciplinas.component';
 import { PageHeaderModule } from '../../shared';
 import { AddIndisciplinaComponent } from './modals/add-indisciplina/add-indisciplina.component';
-import { NgxSoapModule } from 'ngx-soap';
+import { ArchwizardModule } from 'ng2-archwizard';
 
 @NgModule({
   imports: [
@@ -17,7 +17,7 @@ import { NgxSoapModule } from 'ngx-soap';
     PageHeaderModule,
     ReactiveFormsModule,
     DataTablesModule, 
-    NgxSoapModule, 
+    ArchwizardModule, 
     SweetAlert2Module.forRoot({
       buttonsStyling: false,
       customClass: 'modal-content',

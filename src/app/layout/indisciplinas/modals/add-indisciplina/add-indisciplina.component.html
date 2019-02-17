@@ -9,58 +9,80 @@
     </button>
         </div>
         <div class="modal-body">
-            <div class="form-row">
-                <div class="form-group col-md-4">
-                    <label for="">Categoría</label>
-                    <select class="form-control" formControlName="categoria">
+            <!--Comienza el wizard-->
+            <wizard>
+                <wizard-step stepTitle="Paso 1" [canExit]='true'>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="">Categoría</label>
+                            <select class="form-control" formControlName="categoria">
                         <option value="" selected disabled>Seleccione</option>
                         <option *ngFor="let categoria of categorias" [value]='categoria.id'>{{categoria.nombre}}
                         </option>
                     </select>
-                </div>
-                <div class="form-group col-md-4">
-                    <label for="">Fecha</label>
-                    <input type="date" formControlName="fecha" class="form-control" placeholder="Fecha" aria-describedby="helpId">
-                </div>
-                <div class="form-group col-md-4">
-                    <label for="">Clasificación</label>
-                    <select class="form-control" formControlName="clasificacion">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="">Fecha</label>
+                            <input type="date" formControlName="fecha" class="form-control" placeholder="Fecha" aria-describedby="helpId">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="">Clasificación</label>
+                            <select class="form-control" formControlName="clasificacion">
                             <option value="" selected disabled>Seleccione</option>
                             <option value="MUY GRAVE">MUY GRAVE</option>
                             <option value="GRAVE">GRAVE</option>
                             <option value="MENOS GRAVE">MENOS GRAVE</option>
                             <option value="LEVE">LEVE</option>                            
                         </select>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="">Descripción</label>
-                    <textarea class="form-control" formControlName="descripcion" rows="3"></textarea>
-                </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="">Descripción</label>
+                            <textarea class="form-control" formControlName="descripcion" rows="3"></textarea>
+                        </div>
 
-                <div class="form-group col-md-6">
-                    <label for="">Medida Propuesta</label>
-                    <textarea class="form-control" formControlName="medida" rows="3"></textarea>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6 form-inline">
-                    <input type="text" formControlName="searchDemandante" class="form-control mr-sm-2" placeholder="Buscar demandante" aria-describedby="helpId">
-                    <button class="btn btn-primary" type="button" (click)="LoadService()">Buscar</button>
-                </div>
-                <div class="col-md-6 form-inline">
-                    <input type="text" formControlName="searchImplicados" class="form-control mr-sm-2" placeholder="Buscar implicados" aria-describedby="helpId">
-                    <button class="btn btn-primary" type="button">Buscar</button>
-                </div>
-            </div>
+                        <div class="form-group col-md-6">
+                            <label for="">Medida Propuesta</label>
+                            <textarea class="form-control" formControlName="medida" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" nextStep class="btn btn-primary" [disabled]="form.invalid"><i class="fa fa-arrow-circle-right"></i>
+  Siguiente</button>
+                    </div>
+                </wizard-step>
+                <wizard-step stepTitle="Paso 2" awOptionalStep>
+                    <div class="form-row">
+                        <div class="form-group col-md-6 form-inline">
+                            <input type="text" formControlName="searchDemandante" class="form-control mr-sm-2" placeholder="Buscar demandante" aria-describedby="helpId">
+                            <button class="btn btn-primary" type="button" (click)="LoadService()">Buscar</button>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" previousStep class="btn btn-primary"><i class="fa fa-arrow-circle-left"></i>
+  Anterior</button>
+                        <button type="button" nextStep class="btn btn-primary" [disabled]="form.invalid"><i class="fa fa-arrow-circle-right"></i>
+    Siguiente</button>
+                    </div>
+                </wizard-step>
+                <wizard-step stepTitle="Paso 3">
+                    <div class="form-row">
+                        <div class="form-group col-md-6 form-inline">
+                            <input type="text" formControlName="searchImplicados" class="form-control mr-sm-2" placeholder="Buscar implicados" aria-describedby="helpId">
+                            <button class="btn btn-primary" type="button">Buscar</button>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" previousStep class="btn btn-primary"><i class="fa fa-arrow-circle-left"></i>
+    Anterior</button>
+                        <button type="button" nextStep class="btn btn-primary" [disabled]="form.invalid"><i class="fa fa-arrow-circle-right"></i>
+    Siguiente</button>
+                    </div>
+                </wizard-step>
+            </wizard>
         </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-default" (click)="c('Close click')"><i class="fa fa-remove"
-    aria-hidden="true"></i>
-  Cancelar</button>
-            <button type="submit" class="btn btn-primary" [disabled]="form.invalid"><i class="fa fa-save"></i> Guardar</button>
-        </div>
+
     </form>
 </ng-template>
 
