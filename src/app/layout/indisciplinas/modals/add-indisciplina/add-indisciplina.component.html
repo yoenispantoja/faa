@@ -11,73 +11,162 @@
         <div class="modal-body">
             <!--Comienza el wizard-->
             <wizard>
-                <wizard-step stepTitle="Paso 1" [canExit]='true'>
+                <wizard-step stepTitle="Indisciplina" [canExit]='true'>
+                    <br>
                     <div class="form-row">
                         <div class="form-group col-md-4">
-                            <label for="">Categoría</label>
-                            <select class="form-control" formControlName="categoria">
-                        <option value="" selected disabled>Seleccione</option>
-                        <option *ngFor="let categoria of categorias" [value]='categoria.id'>{{categoria.nombre}}
-                        </option>
-                    </select>
+                            <label for="" class="text-primary">Categoría</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text text-primary" id="addon-wrapping"><i class="fa fa-filter" aria-hidden="true"></i></span>
+                                </div>
+                                <select class="form-control" formControlName="categoria">
+                                <option value="" selected disabled>Seleccione</option>
+                                <option *ngFor="let categoria of categorias" [value]='categoria.id'>{{categoria.nombre}}
+                                </option>
+                            </select>
+                            </div>
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="">Fecha</label>
-                            <input type="date" formControlName="fecha" class="form-control" placeholder="Fecha" aria-describedby="helpId">
+                            <label for="" class="text-primary">Fecha</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text text-primary" id="addon-wrapping"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                                </div>
+                                <input type="date" formControlName="fecha" class="form-control" placeholder="Fecha" aria-describedby="helpId">
+                            </div>
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="">Clasificación</label>
-                            <select class="form-control" formControlName="clasificacion">
+                            <label for="" class="text-primary">Clasificación</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text text-primary" id="addon-wrapping"><i class="fa fa-filter" aria-hidden="true"></i></span>
+                                </div>
+                                <select class="form-control" formControlName="clasificacion">
                             <option value="" selected disabled>Seleccione</option>
                             <option value="MUY GRAVE">MUY GRAVE</option>
                             <option value="GRAVE">GRAVE</option>
                             <option value="MENOS GRAVE">MENOS GRAVE</option>
                             <option value="LEVE">LEVE</option>                            
                         </select>
+                            </div>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label for="">Descripción</label>
+                            <label for="" class="text-primary">Descripción</label>
                             <textarea class="form-control" formControlName="descripcion" rows="3"></textarea>
                         </div>
-
                         <div class="form-group col-md-6">
-                            <label for="">Medida Propuesta</label>
+                            <label for="" class="text-primary">Medida Propuesta</label>
                             <textarea class="form-control" formControlName="medida" rows="3"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" nextStep class="btn btn-primary" [disabled]="form.invalid"><i class="fa fa-arrow-circle-right"></i>
+                        <button type="button" nextStep class="btn btn-primary"><i class="fa fa-arrow-circle-right"></i>
   Siguiente</button>
                     </div>
                 </wizard-step>
-                <wizard-step stepTitle="Paso 2" awOptionalStep>
+                <wizard-step stepTitle="Demandante" awOptionalStep>
+                    <br>
                     <div class="form-row">
-                        <div class="form-group col-md-6 form-inline">
-                            <input type="text" formControlName="searchDemandante" class="form-control mr-sm-2" placeholder="Buscar demandante" aria-describedby="helpId">
-                            <button class="btn btn-primary" type="button" (click)="LoadService()">Buscar</button>
+                        <div class="form-group col-md-5">
+                            <label for="" class="text-primary">Nombre y apellidos</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text text-primary" id="addon-wrapping"><i class="fa fa-user-secret" aria-hidden="true"></i></span>
+                                </div>
+                                <input type="text" formControlName="demandante_nombre" class="form-control" placeholder="Nombre y apellidos del demandante" aria-describedby="helpId">
+                            </div>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="" class="text-primary">Solapín</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text text-primary" id="addon-wrapping"><i class="fa fa-credit-card" aria-hidden="true"></i></span>
+                                </div>
+                                <input type="text" formControlName="demandante_solapin" class="form-control" placeholder="Solapin" aria-describedby="helpId">
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="" class="text-primary">Cargo</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text text-primary" id="addon-wrapping"><i class="fa fa-star" aria-hidden="true"></i></span>
+                                </div>
+                                <input type="text" formControlName="demandante_cargo" class="form-control" placeholder="Cargo" aria-describedby="helpId">
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" previousStep class="btn btn-primary"><i class="fa fa-arrow-circle-left"></i>
-  Anterior</button>
-                        <button type="button" nextStep class="btn btn-primary" [disabled]="form.invalid"><i class="fa fa-arrow-circle-right"></i>
+                        <button type="button" previousStep class="btn btn-primary"><i class="fa fa-arrow-circle-left"></i>  Anterior</button>
+                        <button type="button" nextStep class="btn btn-primary"><i class="fa fa-arrow-circle-right"></i>
     Siguiente</button>
                     </div>
                 </wizard-step>
-                <wizard-step stepTitle="Paso 3">
+                <wizard-step stepTitle="Implicados">
+                    <br>
                     <div class="form-row">
-                        <div class="form-group col-md-6 form-inline">
-                            <input type="text" formControlName="searchImplicados" class="form-control mr-sm-2" placeholder="Buscar implicados" aria-describedby="helpId">
-                            <button class="btn btn-primary" type="button">Buscar</button>
+                        <div class="form-group col-md-4">
+                            <label for="" class="text-primary">Nombre y apellidos</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text text-primary" id="addon-wrapping"><i class="fa fa-user" aria-hidden="true"></i></span>
+                                </div>
+                                <input type="text" formControlName="sancionado_nombre" class="form-control" placeholder="Nombre y apellidos" aria-describedby="helpId">
+                            </div>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="" class="text-primary">Solapín</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text text-primary" id="addon-wrapping"><i class="fa fa-credit-card" aria-hidden="true"></i></span>
+                                </div>
+                                <input type="text" formControlName="sancionado_solapin" class="form-control" placeholder="Solapin" aria-describedby="helpId">
+                            </div>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="" class="text-primary">Grupo</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text text-primary" id="addon-wrapping"><i class="fa fa-users" aria-hidden="true"></i></span>
+                                </div>
+                                <input type="text" formControlName="sancionado_grupo" class="form-control" placeholder="Grupo" aria-describedby="helpId">
+                            </div>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <button type="button" id="btnAddImplicado" class="btn btn-info" (click)="addImplicado()"><i class="fa fa-plus" aria-hidden="true"></i>
+  Adicionar</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="" class="text-primary">Implicados</label>
+                            <table class="table table-bordered table-hover display nowrap" style="width:100%; font-size:12px">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre y apellidos</th>
+                                        <th>Solapin</th>
+                                        <th>Grupo</th>
+                                        <th style="width: 50px"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let implicado of implicados; index as i">
+                                        <td>{{ implicado.nombre_completo }}</td>
+                                        <td>{{ implicado.solapin }}</td>
+                                        <td>{{ implicado.grupo }}</td>
+                                        <td><button type='button' (click)="EliminarImplicado(i)" id='btnEliminarImplicado' class='btn btn-sm btn-danger btn-detail' title='Eliminar'><i class='fa fa-trash vermas'></i></button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" previousStep class="btn btn-primary"><i class="fa fa-arrow-circle-left"></i>
     Anterior</button>
-                        <button type="button" nextStep class="btn btn-primary" [disabled]="form.invalid"><i class="fa fa-arrow-circle-right"></i>
-    Siguiente</button>
+                        <button type="submit" class="btn btn-primary" [disabled]="form.invalid"><i class="fa fa-save"></i>
+    Guardar</button>
                     </div>
                 </wizard-step>
             </wizard>
