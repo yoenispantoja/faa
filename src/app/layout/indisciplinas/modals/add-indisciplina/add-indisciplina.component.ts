@@ -7,7 +7,6 @@ import { Router, NavigationEnd } from '@angular/router';
 import { CategoriasService } from 'src/app/shared/services/categorias.service';
 import {Implicado} from '../../implicado';
 
-
 @Component({
   selector: 'app-add-indisciplina',
   templateUrl: './add-indisciplina.component.html',
