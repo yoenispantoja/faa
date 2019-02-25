@@ -37,7 +37,7 @@ export class AddIndisciplinaComponent implements OnInit {
   ngOnInit() {
     //Elementos del formulario
     this.form = this.formBuilder.group({
-      categoria: ['', [Validators.required]],
+      id_categoria: ['', [Validators.required]],
       fecha: ['', [Validators.required]],
       clasificacion: ['', [Validators.required]],
       descripcion: ['', [Validators.required]],
@@ -72,9 +72,15 @@ export class AddIndisciplinaComponent implements OnInit {
   }
 
   onSubmit() {
-    const result: any = Object.assign({}, this.form.value);
+    
+    const implicados= {
+       implicados: this.implicados      
+    }
 
-    /*this.myServicio.addIndisciplina(result).subscribe(
+  const result: any = Object.assign({}, this.form.value, implicados);
+    //console.log(result);
+
+    this.myServicio.addIndisciplina(result).subscribe(
       data => {
         //respuesta correcta
         this.confirmSwal.show();
@@ -82,7 +88,7 @@ export class AddIndisciplinaComponent implements OnInit {
       error => {
         //respuesta de error
       }
-    );*/
+    );
     // alert(this.form.controls.nombre_completo.value);
     //this.form.reset();
   }

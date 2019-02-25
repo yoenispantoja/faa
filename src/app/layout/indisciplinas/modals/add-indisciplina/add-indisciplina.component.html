@@ -20,7 +20,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text text-primary" id="addon-wrapping"><i class="fa fa-filter" aria-hidden="true"></i></span>
                                 </div>
-                                <select class="form-control" formControlName="categoria">
+                                <select class="form-control" formControlName="id_categoria">
                                 <option value="" selected disabled>Seleccione</option>
                                 <option *ngFor="let categoria of categorias" [value]='categoria.id'>{{categoria.nombre}}
                                 </option>
