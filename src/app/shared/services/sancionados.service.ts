@@ -25,6 +25,11 @@ export class SancionadosService {
   getSancionados(){
    return this.myHttp.get(this.url);    
   }
+
+  //Devuelve un sancionado especifico
+  getSancionadoById(id:string) {
+    return this.myHttp.get(this.url+'/'+id);
+  }
   
   //Aficiona un sancionado
   addSancionado(sancionado:any){    

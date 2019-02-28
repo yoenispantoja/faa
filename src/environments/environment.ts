@@ -5,7 +5,7 @@
 export const environment = {
          production: false,
          apiUrl: "http://localhost:8000/api"
-        //apiUrl: 'http://10.34.32.245:5800/faa/api/public/api'
+         //apiUrl: 'http://10.34.32.245:5800/faa/api/public/api'
        };
 
 /*

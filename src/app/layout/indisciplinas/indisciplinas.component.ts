@@ -42,33 +42,34 @@ export class IndisciplinasComponent implements AfterViewInit, OnDestroy, OnInit 
       data: 'categoria.nombre'
     },
     {
-      data: 'descripcion'
-    },
-    {
-      data: function (row, type, set) {
+      data: function(row, type, set) {
         return row.sancionados.length;
       },
-      "className": "text-center"
+      className: 'text-center'
     },
     {
       data: 'fecha',
-      render: function (data) {
+      render: function(data) {
         var date = new Date(data);
         var month = date.getMonth() + 1;
-        return date.getDate() + '/' + (month) + '/' + date.getFullYear();
+        return date.getDate() + '/' + month + '/' + date.getFullYear();
       }
     },
-       
+
     {
       data: 'clasificacion'
     },
     {
-      data: function (row, type, set) {
-        if (row.procesada) return 'Sí'; else return 'No';        
+      data: function(row, type, set) {
+        if (row.procesada) return 'Sí';
+        else return 'No';
       }
-    },    
+    },
     {
       data: 'demandante.nombre_completo'
+    },
+    {
+      data: 'descripcion'
     },
     {
       data: 'medida'
@@ -95,7 +96,7 @@ export class IndisciplinasComponent implements AfterViewInit, OnDestroy, OnInit 
     });
 
     this.dtOptions = this.myTabla.getDataTable(this.url, this.columnas, this.titulo, this.orientacion);
-    
+
     //Evento click del botón Editar
     $(document).on('click', '#btnEditar', $event => {
       let row = this.myTabla.getRowSelected();

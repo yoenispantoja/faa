@@ -18,7 +18,7 @@ module.exports = "<button type=\"button\" class=\"btn btn-sm btn-primary\" (clic
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiIuLi8uLi9sYXlvdXQvc2FuY2lvbmFkb3MvbW9kYWxzL2FkZC1zYW5jaW9uYWRvL2FkZC1zYW5jaW9uYWRvLmNvbXBvbmVudC5zY3NzIn0= */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2xheW91dC9zYW5jaW9uYWRvcy9tb2RhbHMvYWRkLXNhbmNpb25hZG8vYWRkLXNhbmNpb25hZG8uY29tcG9uZW50LnNjc3MifQ== */"
 
 /***/ }),
 
@@ -176,7 +176,7 @@ module.exports = "<div [@routerTransition]>\n    <app-page-header [heading]=\"'L
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiIuLi8uLi9sYXlvdXQvc2FuY2lvbmFkb3Mvc2FuY2lvbmFkb3MuY29tcG9uZW50LnNjc3MifQ== */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2xheW91dC9zYW5jaW9uYWRvcy9zYW5jaW9uYWRvcy5jb21wb25lbnQuc2NzcyJ9 */"
 
 /***/ }),
 
@@ -230,7 +230,13 @@ var SancionadosComponent = /** @class */ (function () {
             },
             {
                 data: function (row, type, set) {
-                    return '<img width="45px" src="' + urlSolapin + row.solapin + '">';
+                    return ('<img class="person-photo" width="45px" src="' +
+                        urlSolapin +
+                        row.solapin +
+                        '"><div id="hidden_' + row.id + '" class="person-original-photo-link photo-estudiante photo-hidden"><img width="200" height="200" src="' +
+                        urlSolapin +
+                        row.solapin +
+                        '"/></div>');
                 }
             },
             {
@@ -271,6 +277,21 @@ var SancionadosComponent = /** @class */ (function () {
         $(document).on('click', '#btnEliminar', function ($event) {
             var row = _this.myTabla.getRowSelected();
             _this.questionSwal.show();
+        });
+        //Evento click de la foto pequeña    
+        $(document).on('click', '.person-photo', function ($event) {
+            var row = _this.myTabla.getRowSelected();
+            //cerrando todas las abiertas
+            var divs = document.getElementsByClassName('photo-hidden');
+            for (var i = 0; i < divs.length; i++) {
+                divs[i].setAttribute("style", "display = 'none'");
+            }
+            document.getElementById('hidden_' + row.id).style.display = 'block';
+        });
+        //Evento click de la foto grande    
+        $(document).on('click', '.photo-hidden', function ($event) {
+            var row = _this.myTabla.getRowSelected();
+            document.getElementById('hidden_' + row.id).style.display = 'none';
         });
     };
     SancionadosComponent.prototype.eliminarRegistro = function () {
@@ -386,73 +407,6 @@ var SancionadosModule = /** @class */ (function () {
         })
     ], SancionadosModule);
     return SancionadosModule;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/shared/services/sancionados.service.ts":
-/*!********************************************************!*\
-  !*** ./src/app/shared/services/sancionados.service.ts ***!
-  \********************************************************/
-/*! exports provided: SancionadosService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SancionadosService", function() { return SancionadosService; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../environments/environment */ "./src/environments/environment.ts");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-var httpOptions = {
-    headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({
-        'Content-Type': 'application/json',
-        'Authorization': 'my-auth-token',
-        'contentType': 'false',
-        'processData': 'false',
-    })
-};
-var SancionadosService = /** @class */ (function () {
-    function SancionadosService(myHttp) {
-        this.myHttp = myHttp;
-        this.url = _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].apiUrl + '/sancionados'; //url del servicio del API
-    }
-    //Devuelve la lista de los sancionados
-    SancionadosService.prototype.getSancionados = function () {
-        return this.myHttp.get(this.url);
-    };
-    //Aficiona un sancionado
-    SancionadosService.prototype.addSancionado = function (sancionado) {
-        return this.myHttp.post(this.url, sancionado, httpOptions);
-    };
-    //Actualiza un sancionado
-    SancionadosService.prototype.editSancionado = function (id, sancionado) {
-        return this.myHttp.put(this.url + '/' + id, sancionado, httpOptions);
-    };
-    //Elimina un sancionado
-    SancionadosService.prototype.deleteSancionado = function (id) {
-        return this.myHttp.delete(this.url + '/' + id, httpOptions);
-    };
-    SancionadosService = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
-            providedIn: 'root'
-        }),
-        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
-    ], SancionadosService);
-    return SancionadosService;
 }());
 
 

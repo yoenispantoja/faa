@@ -9,6 +9,7 @@ import { SancionadosComponent } from './sancionados.component';
 import { PageHeaderModule } from './../../shared';
 import { AddSancionadoComponent } from './modals/add-sancionado/add-sancionado.component';
 
+
 @NgModule({
   imports: [
     CommonModule,

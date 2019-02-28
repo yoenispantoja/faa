@@ -14,6 +14,8 @@ var map = {
 	],
 	"./blank-page/blank-page.module": [
 		"./src/app/layout/blank-page/blank-page.module.ts",
+		"default~blank-page-blank-page-module~indisciplinas-indisciplinas-module",
+		"common",
 		"blank-page-blank-page-module"
 	],
 	"./bs-component/bs-component.module": [
@@ -54,6 +56,7 @@ var map = {
 	"./indisciplinas/indisciplinas.module": [
 		"./src/app/layout/indisciplinas/indisciplinas.module.ts",
 		"default~demandantes-demandantes-module~indisciplinas-indisciplinas-module~sancionados-sancionados-mo~364051b4",
+		"default~blank-page-blank-page-module~indisciplinas-indisciplinas-module",
 		"common",
 		"indisciplinas-indisciplinas-module"
 	],
@@ -178,7 +181,7 @@ module.exports = "<router-outlet></router-outlet>\r\n"
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiIuLi8uLi9hcHAuY29tcG9uZW50LnNjc3MifQ== */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2FwcC5jb21wb25lbnQuc2NzcyJ9 */"
 
 /***/ }),
 
@@ -446,7 +449,7 @@ module.exports = "<div class=\"row\">\r\n    <div class=\"col-xl-12\">\r\n      
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiIuLi9tb2R1bGVzL3BhZ2UtaGVhZGVyL3BhZ2UtaGVhZGVyLmNvbXBvbmVudC5zY3NzIn0= */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NoYXJlZC9tb2R1bGVzL3BhZ2UtaGVhZGVyL3BhZ2UtaGVhZGVyLmNvbXBvbmVudC5zY3NzIn0= */"
 
 /***/ }),
 
@@ -557,7 +560,7 @@ module.exports = "<div class=\"card text-white bg-{{bgClass}}\">\r\n    <div cla
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiIuLi9tb2R1bGVzL3N0YXQvc3RhdC5jb21wb25lbnQuc2NzcyJ9 */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NoYXJlZC9tb2R1bGVzL3N0YXQvc3RhdC5jb21wb25lbnQuc2NzcyJ9 */"
 
 /***/ }),
 
@@ -718,8 +721,8 @@ __webpack_require__.r(__webpack_exports__);
 // The list of file replacements can be found in `angular.json`.
 var environment = {
     production: false,
-    apiUrl: "http://localhost:8000/api"
-    //apiUrl: 'http://10.34.32.245:5800/faa/api/public/api'
+    //apiUrl: "http://localhost:8000/api"
+    apiUrl: 'http://10.34.32.245:5800/faa/api/public/api'
 };
 /*
  * For easier debugging in development mode, you can import the following file

@@ -7,6 +7,7 @@ import { SweetAlert2Module } from '@toverux/ngx-sweetalert2'; //para los sweetAl
 import { DemandantesRoutingModule } from './demandantes-routing.module';
 import { DemandantesComponent } from './demandantes.component';
 import { PageHeaderModule } from '../../shared';
+import { DemandanteDetalleComponent } from './demandante-detalle/demandante-detalle.component';
 
 
 @NgModule({
@@ -23,6 +24,6 @@ import { PageHeaderModule } from '../../shared';
       cancelButtonClass: 'btn'
     })
   ],
-  declarations: [DemandantesComponent]
+  declarations: [DemandantesComponent, DemandanteDetalleComponent]
 })
 export class DemandantesModule {}

@@ -7,7 +7,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { SweetAlert2Module, SwalComponent } from '@toverux/ngx-sweetalert2'; //para los sweetAlerts
 import { Subject } from 'rxjs';
 import { environment } from '../../../environments/environment';
-
+import { Router } from '@angular/router';
 
 var urlSolapin = "http://directorio.uci.cu/sites/all/modules/custom/directorio_de_personas/display_foto.php?id=";
 
@@ -40,7 +40,17 @@ export class SancionadosComponent implements AfterViewInit, OnDestroy, OnInit {
     },
     {
       data: function(row, type, set) {
-        return '<img width="45px" src="' + urlSolapin + row.solapin + '">';
+        return (
+          '<img class="person-photo" width="45px" src="' +
+          urlSolapin +
+          row.solapin +
+          '"><div id="hidden_' +
+          row.id +
+          '" class="person-original-photo-link photo-estudiante photo-hidden"><img width="200" height="200" src="' +
+          urlSolapin +
+          row.solapin +
+          '"/></div>'
+        );
       }
     },
     {
@@ -58,7 +68,7 @@ export class SancionadosComponent implements AfterViewInit, OnDestroy, OnInit {
 
     {
       defaultContent:
-        "<button type='button' id='btnEditar' class='btn btn-sm btn-warning btn-detail' title='Editar'><i class='fa fa-edit vermas'></i></button> <button type='button' id='btnEliminar' class='btn btn-sm btn-danger btn-detail' title='Eliminar'><i class='fa fa-trash vermas'></i></button>"
+        "<button type='button' id='btnDetalles' class='btn btn-sm btn-info btn-detail' title='Ver detalles'><i class='fa fa-eye vermas'></i></button> <button type='button' id='btnEditar' class='btn btn-sm btn-warning btn-detail' title='Editar'><i class='fa fa-edit vermas'></i></button> <button type='button' id='btnEliminar' class='btn btn-sm btn-danger btn-detail' title='Eliminar'><i class='fa fa-trash vermas'></i></button>"
     }
   ];
 
@@ -67,14 +77,10 @@ export class SancionadosComponent implements AfterViewInit, OnDestroy, OnInit {
   orientacion = 'Portrait'; //orientación de la página del documento que se exportará
   closeResult: string;
 
-  name:string= "Yoenis Celedonio";
+  name: string = 'Yoenis Celedonio';
 
   //métodos
-  constructor(
-    private myServicio: SancionadosService,
-    private myTabla: TableFactoryService
-
-  ) {}
+  constructor(private myServicio: SancionadosService, private myTabla: TableFactoryService, private ruta: Router) {}
 
   ngOnInit() {
     this.sancionados = this.myServicio.getSancionados().subscribe(data => {
@@ -84,17 +90,42 @@ export class SancionadosComponent implements AfterViewInit, OnDestroy, OnInit {
     this.dtOptions = this.myTabla.getDataTable(this.url, this.columnas, this.titulo, this.orientacion);
 
     //Evento click del botón Editar
+    $(document).on('click', '#btnDetalles', $event => {
+      let row = this.myTabla.getRowSelected();
+      //Redirigir a otra ruta pasándole el id
+      this.ruta.navigate(['sancionado-detalles', { id: row.id }]);
+    });
+
+    //Evento click del botón Editar
     $(document).on('click', '#btnEditar', $event => {
       let row = this.myTabla.getRowSelected();
       //console.log(row.id);
       //Abriendo la ventana modal para edición
       //this.openEditSancionado(row);
+     
     });
 
     //Evento click del botón Eliminar
     $(document).on('click', '#btnEliminar', $event => {
       let row = this.myTabla.getRowSelected();
       this.questionSwal.show();
+    });
+
+    //Evento click de la foto pequeña
+    $(document).on('click', '.person-photo', $event => {
+      let row = this.myTabla.getRowSelected();
+      //cerrando todas las abiertas
+      let divs = document.getElementsByClassName('photo-hidden');
+      for (var i = 0; i < divs.length; i++) {
+        divs[i].setAttribute('style', "display = 'none'");
+      }
+      document.getElementById('hidden_' + row.id).style.display = 'block';
+    });
+
+    //Evento click de la foto grande
+    $(document).on('click', '.photo-hidden', $event => {
+      let row = this.myTabla.getRowSelected();
+      document.getElementById('hidden_' + row.id).style.display = 'none';
     });
   }
 
@@ -130,9 +161,4 @@ export class SancionadosComponent implements AfterViewInit, OnDestroy, OnInit {
       this.dtTrigger.next();
     });
   }
-
-
-
-
- 
 }

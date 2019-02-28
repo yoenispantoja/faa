@@ -19,3 +19,18 @@
 .ng2-archwizard .steps {
     color: red;
 }
+
+.photo-hidden {
+    display: none;
+}
+
+.person-photo {
+    cursor: url('../assets/zoom_in.cur'), default;
+}
+
+.person-original-photo-link {
+    position: fixed;
+    margin-top: -206px;
+    background-color: #000;
+    cursor: url('../assets/zoom_out.cur'), default;
+}

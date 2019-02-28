@@ -40,7 +40,13 @@ export class DemandantesComponent implements AfterViewInit, OnDestroy, OnInit {
     },
     {
       data: function(row, type, set) {
-        return '<img width="45px" src="' + urlSolapin + row.solapin + '">';
+        return '<img class="person-photo" width="45px" src="' +
+          urlSolapin +
+          row.solapin +
+          '"><div id="hidden_' + row.id + '" class="person-original-photo-link photo-estudiante photo-hidden"><img width="200" height="200" src="' +
+          urlSolapin +
+          row.solapin +
+          '"/></div>';
       }
     },
     {
@@ -92,6 +98,23 @@ export class DemandantesComponent implements AfterViewInit, OnDestroy, OnInit {
     $(document).on('click', '#btnEliminar', $event => {
       let row = this.myTabla.getRowSelected();
       this.questionSwal.show();
+    });
+
+    //Evento click de la foto pequeña    
+    $(document).on('click', '.person-photo', $event => {
+      let row = this.myTabla.getRowSelected();
+      //cerrando todas las abiertas
+      let divs = document.getElementsByClassName('photo-hidden');
+      for (var i = 0; i < divs.length; i++) {
+        divs[i].setAttribute("style", "display = 'none'");
+      }
+      document.getElementById('hidden_' + row.id).style.display = 'block';
+    });
+
+    //Evento click de la foto grande    
+    $(document).on('click', '.photo-hidden', $event => {
+      let row = this.myTabla.getRowSelected();
+      document.getElementById('hidden_' + row.id).style.display = 'none';
     });
   }
 

@@ -11,6 +11,7 @@ const routes: Routes = [
       { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule' },
       { path: 'indisciplinas', loadChildren: './indisciplinas/indisciplinas.module#IndisciplinasModule' },
       { path: 'sancionados', loadChildren: './sancionados/sancionados.module#SancionadosModule' },
+      { path: 'sancionado-detalles', loadChildren: './sancionado-detalles/sancionado-detalles.module#SancionadoDetallesModule' },
       { path: 'demandantes', loadChildren: './demandantes/demandantes.module#DemandantesModule' },
       { path: 'charts', loadChildren: './charts/charts.module#ChartsModule' },
       { path: 'tables', loadChildren: './tables/tables.module#TablesModule' },
