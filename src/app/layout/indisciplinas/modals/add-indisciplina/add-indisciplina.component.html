@@ -43,12 +43,12 @@
                                     <span class="input-group-text text-primary" id="addon-wrapping"><i class="fa fa-filter" aria-hidden="true"></i></span>
                                 </div>
                                 <select class="form-control" formControlName="clasificacion">
-                            <option value="" selected disabled>Seleccione</option>
-                            <option value="MUY GRAVE">MUY GRAVE</option>
-                            <option value="GRAVE">GRAVE</option>
-                            <option value="MENOS GRAVE">MENOS GRAVE</option>
-                            <option value="LEVE">LEVE</option>                            
-                        </select>
+                                    <option value="" selected disabled>Seleccione</option>
+                                    <option value="MUY GRAVE">MUY GRAVE</option>
+                                    <option value="GRAVE">GRAVE</option>
+                                    <option value="MENOS GRAVE">MENOS GRAVE</option>
+                                    <option value="LEVE">LEVE</option>                            
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -76,7 +76,11 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text text-primary" id="addon-wrapping"><i class="fa fa-user-secret" aria-hidden="true"></i></span>
                                 </div>
-                                <input type="text" formControlName="demandante_nombre" class="form-control" placeholder="Nombre y apellidos del demandante" aria-describedby="helpId">
+                                <input type="text" formControlName="demandante_nombre" list="dtlDemandantes" class="form-control" placeholder="Nombre y apellidos del demandante" aria-describedby="helpId" [(ngModel)]='currentDemandante' (change)="onDemandanteChanged(currentDemandante)">
+                                <datalist id="dtlDemandantes">
+                                <option *ngFor="let demandante of demandantes['data']" >{{demandante.nombre_completo}}
+                                </option>
+                                </datalist>
                             </div>
                         </div>
                         <div class="form-group col-md-3">
@@ -85,7 +89,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text text-primary" id="addon-wrapping"><i class="fa fa-credit-card" aria-hidden="true"></i></span>
                                 </div>
-                                <input type="text" formControlName="demandante_solapin" class="form-control" placeholder="Solapin" aria-describedby="helpId">
+                                <input type="text" formControlName="demandante_solapin" class="form-control" placeholder="Solapin" aria-describedby="helpId" [(ngModel)]='solapinDemandante'>
                             </div>
                         </div>
                         <div class="form-group col-md-4">
@@ -94,7 +98,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text text-primary" id="addon-wrapping"><i class="fa fa-star" aria-hidden="true"></i></span>
                                 </div>
-                                <input type="text" formControlName="demandante_cargo" class="form-control" placeholder="Cargo" aria-describedby="helpId">
+                                <input type="text" formControlName="demandante_cargo" class="form-control" placeholder="Cargo" aria-describedby="helpId" [(ngModel)]='cargoDemandante'>
                             </div>
                         </div>
                     </div>
@@ -113,7 +117,11 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text text-primary" id="addon-wrapping"><i class="fa fa-user" aria-hidden="true"></i></span>
                                 </div>
-                                <input type="text" formControlName="sancionado_nombre" class="form-control" placeholder="Nombre y apellidos" aria-describedby="helpId">
+                                <input type="text" formControlName="sancionado_nombre" list="dtlSancionados" class="form-control" placeholder="Nombre y apellidos" aria-describedby="helpId" [(ngModel)]='currentSancionado' (change)="onSancionadoChanged(currentSancionado)">
+                                <datalist id="dtlSancionados">
+                                    <option *ngFor="let sancionado of sancionados['data']">{{sancionado.nombre_completo}}
+                                    </option>
+                                </datalist>
                             </div>
                         </div>
                         <div class="form-group col-md-3">
@@ -122,7 +130,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text text-primary" id="addon-wrapping"><i class="fa fa-credit-card" aria-hidden="true"></i></span>
                                 </div>
-                                <input type="text" formControlName="sancionado_solapin" class="form-control" placeholder="Solapin" aria-describedby="helpId">
+                                <input type="text" formControlName="sancionado_solapin" class="form-control" placeholder="Solapin" aria-describedby="helpId" [(ngModel)]='solapinSancionado'>
                             </div>
                         </div>
                         <div class="form-group col-md-3">
@@ -131,7 +139,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text text-primary" id="addon-wrapping"><i class="fa fa-users" aria-hidden="true"></i></span>
                                 </div>
-                                <input type="text" formControlName="sancionado_grupo" class="form-control" placeholder="Grupo" aria-describedby="helpId">
+                                <input type="text" formControlName="sancionado_grupo" class="form-control" placeholder="Grupo" aria-describedby="helpId" [(ngModel)]='grupoSancionado'>
                             </div>
                         </div>
                         <div class="form-group col-md-2">
@@ -176,4 +184,7 @@
 </ng-template>
 
 <swal #confirmSwal title="Información" text="Registro almacenado" type="success" [showCancelButton]="false" [focusCancel]="true" (confirm)="cerrarVentana()">
+</swal>
+
+<swal #existeSancionadoSwal title="Información" text="Ya existe este estudiante en la lista" type="error" [showCancelButton]="false" [focusCancel]="true">
 </swal>
