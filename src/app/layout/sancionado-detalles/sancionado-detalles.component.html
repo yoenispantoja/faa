@@ -2,10 +2,54 @@
     <app-page-header [heading]="'Detalles del sancionado'" [icon]="'fa-user'"></app-page-header>
 
     <div class="row">
-        <div class="col-md-3">
-            <img [src]="foto" alt="" width="200px" height="200px">
+        <div class="col-lg-12">
+            <div class="card mb-3">
+                <div class="card-header"><b>Ficha personal</b><span class="pull-right text-danger"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Exportar</span></div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <img [src]="foto" alt="" class="rowSancionado" width="200px" height="200px">
+                        </div>
+                        <div class="col-sm-8">
+                            <div *ngIf="sancionado">
+                                <br><br>
+                                <h5><i class="fa fa-user" aria-hidden="true"></i> <span class="text-primary"> Nombre y apellidos: </span>{{sancionado.nombre_completo}}</h5>
+                                <h5><i class="fa fa-users" aria-hidden="true"></i> <span class="text-primary"> Grupo docente: </span>{{sancionado.grupo}}</h5>
+                                <h5><i class="fa fa-credit-card" aria-hidden="true"></i> <span class="text-primary"> Solapín: </span>{{sancionado.solapin}}</h5>
+                                <h5><i class="fa fa-fire" aria-hidden="true"></i> <span class="text-primary"> Cantidad de sanciones: </span><span class="badge badge-info">{{sancionado.indisciplinas.length}}</span></h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <hr>
+                            <h4>Relación de indisciplinas cometidas</h4>
+                            <div *ngIf="sancionado.indisciplinas">
+                                <table class="table table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Fecha</th>
+                                            <th>Categoría</th>
+                                            <th>Clasificación</th>
+                                            <th>Descripción</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let indisciplina of indisciplinas">
+                                            <td>{{indisciplina.fecha}}</td>
+                                            <td>{{getCategoria(indisciplina.id_categoria)}}</td>
+                                            <td>{{indisciplina.clasificacion}}</td>
+                                            <td>{{indisciplina.descripcion}}</td>
+                                        </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-md-9"></div>
     </div>
 
 

@@ -24,6 +24,11 @@ export class CategoriasService {
     return this.myHttp.get(this.url);
   }
 
+  //Devuelve una categoria especifica
+  getCategoriaById(id: string) {
+    return this.myHttp.get(this.url + '/' + id);
+  }
+
   //Aficiona un categoria
   addCategoria(categoria: any) {
     return this.myHttp.post(this.url, categoria, httpOptions);
