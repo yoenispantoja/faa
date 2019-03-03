@@ -10,6 +10,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'dashboard', pathMatch: 'prefix' },
       { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule' },
       { path: 'indisciplinas', loadChildren: './indisciplinas/indisciplinas.module#IndisciplinasModule' },
+      { path: 'indisciplina-detalles', loadChildren: './indisciplina-detalles/indisciplina-detalles.module#IndisciplinaDetallesModule' },
       { path: 'sancionados', loadChildren: './sancionados/sancionados.module#SancionadosModule' },
       { path: 'sancionado-detalles', loadChildren: './sancionado-detalles/sancionado-detalles.module#SancionadoDetallesModule' },
       { path: 'demandantes', loadChildren: './demandantes/demandantes.module#DemandantesModule' },

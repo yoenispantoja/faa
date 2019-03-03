@@ -4,7 +4,8 @@ import { SancionadosService } from 'src/app/shared/services/sancionados.service'
 import { CategoriasService } from 'src/app/shared/services/categorias.service';
 
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
+
 
 var urlSolapin = "http://directorio.uci.cu/sites/all/modules/custom/directorio_de_personas/display_foto.php?id=";
 
@@ -15,36 +16,44 @@ var urlSolapin = "http://directorio.uci.cu/sites/all/modules/custom/directorio_d
   animations: [routerTransition()]
 })
 export class SancionadoDetallesComponent implements OnInit {
-
   sancionado: any;
-  categoría: any;
-  foto:string;
-  nombreSancionado:string;
-  indisciplinas:{};
+  categorias: {};
+  foto: string;
+  nombreSancionado: string;
+  indisciplinas: {};
+  urlPrint = environment.apiUrl + '/imprimir_ficha_sancionado/'; //url del servicio del API
 
-  constructor(private route: ActivatedRoute,
-    private router: Router, private sancionadoService: SancionadosService, private categoriaService: CategoriasService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private sancionadoService: SancionadosService,
+    private myServicioCategorias: CategoriasService
+  ) {}
 
   ngOnInit() {
     let id = this.route.snapshot.paramMap.get('id');
     this.sancionadoService.getSancionadoById(id).subscribe(data => {
       this.sancionado = data[0]; //lleno los sancionados desde el servicio
-      this.foto=urlSolapin+this.sancionado.solapin;  
+      this.foto = urlSolapin + this.sancionado.solapin;
       this.nombreSancionado = this.sancionado.nombre_completo;
-      this.indisciplinas= this.sancionado.indisciplinas;
+      this.indisciplinas = this.sancionado.indisciplinas;
     });
- 
-    
+
+    this.myServicioCategorias.getCategorias().subscribe(data => {
+      this.categorias = data; //lleno los categorias desde el servicio
+    });
   }
 
-  getCategoria (id: any): any{
-    let nombreCategoria:string;
-    this.categoriaService.getCategoriaById(id).subscribe(data=>{
-      nombreCategoria= data['nombre'];
-      console.log(data);
-    });
-    return nombreCategoria;
-    
+  getCategoria(id: number): string {
+    return this.categorias[id - 1]['nombre'];
   }
 
+  VerIndisciplina(idIndisciplina: number): void {
+    this.router.navigate(['/indisciplina-detalles', { id: idIndisciplina }]);
+  }
+
+  ExportarFicha(id:number):void{
+    var url = this.urlPrint + id;
+    window.location.href = url;
+  }
 }

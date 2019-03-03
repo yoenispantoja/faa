@@ -7,6 +7,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { SweetAlert2Module, SwalComponent } from '@toverux/ngx-sweetalert2'; //para los sweetAlerts
 import { Subject } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { Router, ActivatedRoute } from '@angular/router';
 
 
 var urlSolapin = "http://directorio.uci.cu/sites/all/modules/custom/directorio_de_personas/display_foto.php?id=";
@@ -36,7 +37,8 @@ export class IndisciplinasComponent implements AfterViewInit, OnDestroy, OnInit 
   columnas = [
     {
       //columnas del dataTable
-      data: 'id'
+      data: 'id',
+      className: 'text-center'
     },
     {
       data: 'categoria.nombre'
@@ -57,26 +59,15 @@ export class IndisciplinasComponent implements AfterViewInit, OnDestroy, OnInit 
     },
 
     {
-      data: 'clasificacion'
-    },
-    {
-      data: function(row, type, set) {
-        if (row.procesada) return 'Sí';
-        else return 'No';
-      }
+      data: 'clasificacion',
+      className: 'text-center'
     },
     {
       data: 'demandante.nombre_completo'
     },
     {
-      data: 'descripcion'
-    },
-    {
-      data: 'medida'
-    },
-    {
       defaultContent:
-        "<button type='button' id='btnEditar' class='btn btn-sm btn-warning btn-detail' title='Editar'><i class='fa fa-edit vermas'></i></button> <button type='button' id='btnEliminar' class='btn btn-sm btn-danger btn-detail' title='Eliminar'><i class='fa fa-trash vermas'></i></button>"
+        "<button type='button' id='btnVerDetalles' class='btn btn-sm btn-info btn-detail' title='Ver detalles'><i class='fa fa-search-plus vermas'></i></button> <button type='button' id='btnEditar' class='btn btn-sm btn-warning btn-detail' title='Editar'><i class='fa fa-edit vermas'></i></button><button type='button' id='btnEliminar' class='btn btn-sm btn-danger btn-detail' title='Eliminar'><i class='fa fa-trash vermas'></i></button>"
     }
   ];
 
@@ -88,7 +79,12 @@ export class IndisciplinasComponent implements AfterViewInit, OnDestroy, OnInit 
   name: string = 'Yoenis Celedonio';
 
   //métodos
-  constructor(private myServicio: IndisciplinasService, private myTabla: TableFactoryService) {}
+  constructor(
+    private myServicio: IndisciplinasService,
+    private myTabla: TableFactoryService,
+    private ruta: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {
     this.indisciplinas = this.myServicio.getIndisciplinas().subscribe(data => {
@@ -96,6 +92,13 @@ export class IndisciplinasComponent implements AfterViewInit, OnDestroy, OnInit 
     });
 
     this.dtOptions = this.myTabla.getDataTable(this.url, this.columnas, this.titulo, this.orientacion);
+
+    //Evento click del botón Ver Detalles
+    $(document).on('click', '#btnVerDetalles', $event => {
+      let row = this.myTabla.getRowSelected();
+      //Redirigir a otra ruta pasándole el id
+      this.ruta.navigate(['indisciplina-detalles', { id: row.id }]);
+    });
 
     //Evento click del botón Editar
     $(document).on('click', '#btnEditar', $event => {

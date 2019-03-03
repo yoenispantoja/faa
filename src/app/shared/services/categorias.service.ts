@@ -25,7 +25,7 @@ export class CategoriasService {
   }
 
   //Devuelve una categoria especifica
-  getCategoriaById(id: string) {
+  getCategoriaById(id: any) {
     return this.myHttp.get(this.url + '/' + id);
   }
 

@@ -45,7 +45,7 @@ export class TableFactoryService {
       },
       responsive: true,
       //serverSide: true,
-      //processing: true,
+      processing: true,
       language: this.idioma_es,
       lengthMenu: [
         [10, 25, 50, -1],

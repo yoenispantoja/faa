@@ -68,7 +68,7 @@ export class SancionadosComponent implements AfterViewInit, OnDestroy, OnInit {
 
     {
       defaultContent:
-        "<button type='button' id='btnDetalles' class='btn btn-sm btn-info btn-detail' title='Ver detalles'><i class='fa fa-eye vermas'></i></button> <button type='button' id='btnEditar' class='btn btn-sm btn-warning btn-detail' title='Editar'><i class='fa fa-edit vermas'></i></button> <button type='button' id='btnEliminar' class='btn btn-sm btn-danger btn-detail' title='Eliminar'><i class='fa fa-trash vermas'></i></button>"
+        "<button type='button' id='btnDetalles' class='btn btn-sm btn-info btn-detail' title='Ver detalles'><i class='fa fa-search-plus vermas'></i></button> <button type='button' id='btnEditar' class='btn btn-sm btn-warning btn-detail' title='Editar'><i class='fa fa-edit vermas'></i></button> <button type='button' id='btnEliminar' class='btn btn-sm btn-danger btn-detail' title='Eliminar'><i class='fa fa-trash vermas'></i></button>"
     }
   ];
 
@@ -102,7 +102,6 @@ export class SancionadosComponent implements AfterViewInit, OnDestroy, OnInit {
       //console.log(row.id);
       //Abriendo la ventana modal para edición
       //this.openEditSancionado(row);
-     
     });
 
     //Evento click del botón Eliminar

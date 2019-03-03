@@ -26,6 +26,11 @@ export class IndisciplinasService {
     return this.myHttp.get(this.url);
   }
 
+  //Devuelve una indisciplina especifica
+  getIndisciplinaById(id: string) {
+    return this.myHttp.get(this.url + '/' + id);
+  }
+
   //Aficiona un indisciplina
   addIndisciplina(indisciplina: any) {
     return this.myHttp.post(this.url, indisciplina, httpOptions);
