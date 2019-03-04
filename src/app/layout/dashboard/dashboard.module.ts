@@ -10,6 +10,7 @@ import {
     ChatComponent
 } from './components';
 import { StatModule } from '../../shared';
+import { ChartsModule as Ng2Charts } from 'ng2-charts';
 
 @NgModule({
     imports: [
@@ -17,7 +18,8 @@ import { StatModule } from '../../shared';
         NgbCarouselModule,
         NgbAlertModule,
         DashboardRoutingModule,
-        StatModule
+        StatModule,
+        Ng2Charts
     ],
     declarations: [
         DashboardComponent,
