@@ -8,6 +8,7 @@ import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { WOW } from 'wowjs/dist/wow.min';
 import { ChartsService } from 'src/app/shared/services/charts.service';
 
+var urlSolapin = 'http://directorio.uci.cu/sites/all/modules/custom/directorio_de_personas/display_foto.php?id=';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,12 +20,15 @@ export class DashboardComponent implements OnInit {
   public alerts: Array<any> = [];
   public sliders: Array<any> = [];
   indisciplinas: any;
+  ultimasdiez:any;
   sancionados: any;
+  ultimosdiez:any;
   demandantes: any;
   categorias: any;
   totalI: number;
   totalS: number;
   totalD: number;
+  solapin: string= urlSolapin;
 
   //Gráficos
   // bar chart
@@ -90,24 +94,7 @@ export class DashboardComponent implements OnInit {
       }
     );
 
-    this.alerts.push(
-      {
-        id: 1,
-        type: 'success',
-        message: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Voluptates est animi quibusdam praesentium quam, et perspiciatis,
-                consectetur velit culpa molestias dignissimos
-                voluptatum veritatis quod aliquam! Rerum placeat necessitatibus, vitae dolorum`
-      },
-      {
-        id: 2,
-        type: 'warning',
-        message: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Voluptates est animi quibusdam praesentium quam, et perspiciatis,
-                consectetur velit culpa molestias dignissimos
-                voluptatum veritatis quod aliquam! Rerum placeat necessitatibus, vitae dolorum`
-      }
-    );
+    
   }
 
   ngOnInit() {
@@ -138,24 +125,26 @@ export class DashboardComponent implements OnInit {
 
     //Categorias
     this.servicioCategorias.getCategorias().subscribe(data => {
-        this.categorias = data; //lleno las categorias desde el servicio
-        
+        this.categorias = data; //lleno las categorias desde el servicio        
         //lleno las labels del chart con ella
-        for (let index = 0; index < this.categorias.length; index++) {
-            console.log(this.categorias[index].nombre);
+        for (let index = 0; index < this.categorias.length; index++) {            
             this.barChartLabels[index]=(this.categorias[index].nombre);
-        }
-        console.log(this.barChartLabels);
-      
-    });      
-    
-    this.servicioChart.getDataChart().subscribe(data=>{
+        }     
+    }); 
 
-        this.barChartData = data as any[];
-        console.log(data);
+    //Cargando los datos del Chart
+    this.servicioChart.getDataChart().subscribe(data=>{
+        this.barChartData = data as any[];        
     });
       
-      
+    //Resumen de los últimos 5
+    this.servicioIndisciplinas.getUltimasIndisciplinas().subscribe(data=>{
+        this.ultimasdiez= data;
+    });  
+
+    this.servicioSancionados.getUltimosSancionados().subscribe(data=>{
+        this.ultimosdiez = data;
+    });
 
       
   }

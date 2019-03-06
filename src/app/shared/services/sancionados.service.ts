@@ -16,38 +16,38 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class SancionadosService {
-
   url = environment.apiUrl + '/sancionados'; //url del servicio del API
+  urlUltimosDiez = environment.apiUrl + '/ultimos_sancionados'; //url del servicio del API
 
-  constructor(private myHttp: HttpClient) { }
-  
+  constructor(private myHttp: HttpClient) {}
+
   //Devuelve la lista de los sancionados
-  getSancionados(){
-   return this.myHttp.get(this.url);    
+  getSancionados() {
+    return this.myHttp.get(this.url);
   }
 
   //Devuelve un sancionado especifico
-  getSancionadoById(id:string) {
-    return this.myHttp.get(this.url+'/'+id);
+  getSancionadoById(id: string) {
+    return this.myHttp.get(this.url + '/' + id);
   }
-  
+
+  //Devuelve la lista de las últimas 10 indisciplinas
+  getUltimosSancionados() {
+    return this.myHttp.get(this.urlUltimosDiez);
+  }
+
   //Aficiona un sancionado
-  addSancionado(sancionado:any){    
-    return this.myHttp.post(this.url, sancionado, httpOptions);      
+  addSancionado(sancionado: any) {
+    return this.myHttp.post(this.url, sancionado, httpOptions);
   }
 
   //Actualiza un sancionado
-  editSancionado(id:number,sancionado:any){    
-    return this.myHttp.put(this.url + '/' + id, sancionado, httpOptions);      
+  editSancionado(id: number, sancionado: any) {
+    return this.myHttp.put(this.url + '/' + id, sancionado, httpOptions);
   }
 
   //Elimina un sancionado
-  deleteSancionado(id:number)
-  {
-    return this.myHttp.delete(this.url+'/'+id, httpOptions);
+  deleteSancionado(id: number) {
+    return this.myHttp.delete(this.url + '/' + id, httpOptions);
   }
-
-  
-
-  
 }

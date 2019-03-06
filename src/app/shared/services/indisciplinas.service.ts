@@ -16,12 +16,13 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class IndisciplinasService {
-
   url = environment.apiUrl + '/indisciplinas'; //url del servicio del API
+  urlUltimasDiez = environment.apiUrl + '/ultimas_indisciplinas'; //url del servicio del API
+  urlConMedida = environment.apiUrl + '/medidas'; //url del servicio del API
 
-  constructor(private myHttp: HttpClient) { }
+  constructor(private myHttp: HttpClient) {}
 
-  //Devuelve la lista de los indisciplinas
+  //Devuelve la lista de las indisciplinas
   getIndisciplinas() {
     return this.myHttp.get(this.url);
   }
@@ -29,6 +30,16 @@ export class IndisciplinasService {
   //Devuelve una indisciplina especifica
   getIndisciplinaById(id: string) {
     return this.myHttp.get(this.url + '/' + id);
+  }
+
+  //Devuelve la lista de las últimas 10 indisciplinas
+  getUltimasIndisciplinas() {
+    return this.myHttp.get(this.urlUltimasDiez);
+  }
+
+  //Devuelve la lista de las últimas 10 indisciplinas
+  getIndisciplinasConMedida() {
+    return this.myHttp.get(this.urlConMedida);
   }
 
   //Aficiona un indisciplina

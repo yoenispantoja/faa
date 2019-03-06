@@ -16,18 +16,70 @@
         </div>
     </div>
     <hr />
-    <div class="row wow slideInLeft" data-wow-duration="1s" data-wow-delay="0.8s">
-        <div class="col col-sm-12 ">
+    <div class="row wow slideInDown" data-wow-duration="1s" data-wow-delay="0.6s">
+        <!-- Ultimos 10 sancionados -->
+        <div class="col-md-6">
             <div class="card mb-3 ">
-                <div class="card-header bg-secondary ">
-                    <strong class="text-white">Cantidad de indisciplinas por categorías</strong>
+                <div class="card-header bg-dark ">
+                    <strong class="text-white"><i class="fa fa-users" aria-hidden="true"></i> Últimos sancionados registrados</strong>
                 </div>
-                <div class="card-body " *ngIf="categorias">
-                    <canvas baseChart [datasets]="barChartData " [colors]="barChartColors" [labels]="barChartLabels " [options]="barChartOptions " [legend]="barChartLegend " [chartType]="barChartType ">
-      </canvas>
+                <div class="card-body" style="font-size: 12px">
+                    <table class="table table-bordered table-striped table-hover display nowrap">
+                        <tr class="bg-info">
+                            <th>Foto</th>
+                            <th>Solapín</th>
+                            <th>Nombre y Apellidos</th>
+                            <th>Grupo</th>
+                            <th class="text-center">Indisciplinas</th>
+                        </tr>
+                        <tr *ngFor="let sancionado of ultimosdiez">
+                            <td class="text-center"><img src="{{solapin + sancionado.solapin}}" alt="" width="47px"></td>
+                            <td>{{sancionado.solapin}}</td>
+                            <td>{{sancionado.nombre_completo}}</td>
+                            <td class="text-center">{{sancionado.grupo}}</td>
+                            <td class="text-center">{{sancionado.indisciplinas.length}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- Últimas diez indisciplinas -->
+        <div class="col-md-6">
+            <div class="card mb-3 ">
+                <div class="card-header bg-dark ">
+                    <strong class="text-white"><i class="fa fa-fire" aria-hidden="true"></i> Últimas indisciplinas registradas</strong>
+                </div>
+                <div class="card-body" style="font-size: 12px">
+                    <table class="table table-bordered table-striped table-hover display nowrap">
+                        <tr class="bg-danger">
+                            <th>Fecha</th>
+                            <th>Categoría</th>
+                            <th>Clasificación</th>
+                            <th class="text-center">Implicados</th>
+                        </tr>
+                        <tr *ngFor="let indisciplina of ultimasdiez">
+                            <td>{{indisciplina.fecha | date}}</td>
+                            <td>{{indisciplina.categoria.nombre}}</td>
+                            <td>{{indisciplina.clasificacion}}</td>
+                            <td class="text-center">{{indisciplina.sancionados.length}}</td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
-
-</div>
+    <hr />
+    <div class="row wow slideInDown" data-wow-duration="1s" data-wow-delay="1.2s">
+        <div class="col col-sm-12 ">
+            <div class="card mb-3 ">
+                <div class="card-header bg-secondary ">
+                    <strong class="text-white"><i class="fa fa-envelope" aria-hidden="true"></i> Cantidad de indisciplinas por categorías</strong>
+                </div>
+                <div class="card-body " *ngIf="categorias">
+                    <canvas baseChart [datasets]="barChartData " [colors]="barChartColors" [labels]="barChartLabels " [options]="barChartOptions " [legend]="barChartLegend " [chartType]="barChartType ">
+                    </canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>  

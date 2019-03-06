@@ -49,7 +49,7 @@ export class SancionadoDetallesComponent implements OnInit {
   }
 
   VerIndisciplina(idIndisciplina: number): void {
-       this.router.navigate(['/indisciplina-detalles', { id: idIndisciplina }]);
+    this.router.navigate(['indisciplina-detalles', { id: idIndisciplina }]);
   }
 
   ExportarFicha(id:number):void{

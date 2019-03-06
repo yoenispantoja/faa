@@ -1,0 +1,30 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'Listado de medidas'" [icon]="'fa-gavel'"></app-page-header>
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" id="tbMedidas" [ngClass]="'table table-bordered table-hover display nowrap'" *ngIf="medidas" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Indisciplina</th>
+                            <th>Medida aplicada</th>
+                            <th>Categoría</th>
+                            <th>Procesada</th>
+                            <th class="thOperations" width="50px"></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <swal #successSwal title="Información" text="Registro eliminado" type="success" [showCancelButton]="false" [focusCancel]="true">
+    </swal>
+
+    <swal #questionSwal title="Información" text="¿Está seguro de eliminar este registro?" type="question" [showCancelButton]="true" [focusCancel]="true" (confirm)="eliminarRegistro()">
+    </swal>
+
+    <!-- /.row -->
+</div>

@@ -89,11 +89,11 @@ export class SancionadosComponent implements AfterViewInit, OnDestroy, OnInit {
 
     this.dtOptions = this.myTabla.getDataTable(this.url, this.columnas, this.titulo, this.orientacion);
 
-    //Evento click del botón Editar
+    //Evento click del botón <detalles>
     $(document).on('click', '#btnDetalles', $event => {
       let row = this.myTabla.getRowSelected();
       //Redirigir a otra ruta pasándole el id
-      this.ruta.navigate(['sancionado-detalles', { id: row.id }]);
+      this.ruta.navigate(['/sancionado-detalles', { id: row.id }]);
     });
 
     //Evento click del botón Editar

@@ -14,6 +14,7 @@ const routes: Routes = [
       { path: 'sancionados', loadChildren: './sancionados/sancionados.module#SancionadosModule' },
       { path: 'sancionado-detalles', loadChildren: './sancionado-detalles/sancionado-detalles.module#SancionadoDetallesModule' },
       { path: 'demandantes', loadChildren: './demandantes/demandantes.module#DemandantesModule' },
+      { path: 'medidas', loadChildren: './medidas/medidas.module#MedidasModule' },
       { path: 'charts', loadChildren: './charts/charts.module#ChartsModule' },
       { path: 'tables', loadChildren: './tables/tables.module#TablesModule' },
       { path: 'forms', loadChildren: './form/form.module#FormModule' },
