@@ -83,7 +83,7 @@ export class MedidasComponent implements AfterViewInit, OnDestroy, OnInit {
     });
 
     //Evento click del botón Editar
-    $(document).on('click', '#btnVerIndisciplina', $event => {
+    $(document).on('click', '#btnEditar', $event => {
       let row = this.myTabla.getRowSelected();
       
     });

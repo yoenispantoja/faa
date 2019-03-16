@@ -43,8 +43,7 @@ $topnav-background-color: #222;
         }
         .header-fields {
             padding-top: 10px;
-        
-            > .list-group-item:first-child {
+            >.list-group-item:first-child {
                 border-top: 1px solid rgba(255, 255, 255, 0.2);
             }
         }
@@ -129,17 +128,20 @@ $topnav-background-color: #222;
         }
     }
 }
+
 @media screen and (max-width: 992px) {
     .sidebar {
         top: 54px;
         left: 0px;
     }
 }
+
 @media print {
     .sidebar {
         display: none !important;
     }
 }
+
 @media (min-width: 992px) {
     .header-fields {
         display: none;
@@ -188,4 +190,8 @@ $topnav-background-color: #222;
     span {
         display: none;
     }
+}
+
+.mouse-click {
+    cursor: pointer;
 }
