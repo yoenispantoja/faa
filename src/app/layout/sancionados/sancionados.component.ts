@@ -8,6 +8,9 @@ import { SweetAlert2Module, SwalComponent } from '@toverux/ngx-sweetalert2'; //p
 import { Subject } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 
 var urlSolapin = "http://directorio.uci.cu/sites/all/modules/custom/directorio_de_personas/display_foto.php?id=";
 
@@ -21,6 +24,9 @@ export class SancionadosComponent implements AfterViewInit, OnDestroy, OnInit {
   //atributos
   @ViewChild('questionSwal') private questionSwal: SwalComponent;
   @ViewChild('successSwal') private successSwal: SwalComponent;
+  @ViewChild('confirmSwal') private confirmSwal: SwalComponent;
+
+  @ViewChild('content') private content: NgbModal;
 
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
@@ -36,7 +42,8 @@ export class SancionadosComponent implements AfterViewInit, OnDestroy, OnInit {
   columnas = [
     {
       //columnas del dataTable
-      data: 'id'
+      data: 'id',
+      className: 'text-center'
     },
     {
       data: function(row, type, set) {
@@ -57,18 +64,23 @@ export class SancionadosComponent implements AfterViewInit, OnDestroy, OnInit {
       data: 'nombre_completo'
     },
     {
-      data: 'solapin'
+      data: 'solapin',
+      className: 'text-center'
     },
     {
-      data: 'grupo'
+      data: 'grupo',
+      className: 'text-center'
     },
     {
-      data: 'created_at'
+      data: function(row, type, set) {
+        return row.indisciplinas.length;
+      },
+      className: 'text-center'
     },
 
     {
       defaultContent:
-        "<button type='button' id='btnDetalles' class='btn btn-sm btn-info btn-detail' title='Ver detalles'><i class='fa fa-search-plus vermas'></i></button> <button type='button' id='btnEditar' class='btn btn-sm btn-warning btn-detail' title='Editar'><i class='fa fa-edit vermas'></i></button> <button type='button' id='btnEliminar' class='btn btn-sm btn-danger btn-detail' title='Eliminar'><i class='fa fa-trash vermas'></i></button>"
+        "<button type='button' id='btnDetalles' class='btn btn-sm btn-info btn-detail' title='Ver detalles'><i class='fa fa-search-plus vermas'></i></button> <button type='button' id='btnEditar' (click)='open(content)' class='btn btn-sm btn-warning btn-detail' title='Editar'><i class='fa fa-edit vermas'></i></button> <button type='button' id='btnEliminar' class='btn btn-sm btn-danger btn-detail' title='Eliminar'><i class='fa fa-trash vermas'></i></button>"
     }
   ];
 
@@ -79,8 +91,17 @@ export class SancionadosComponent implements AfterViewInit, OnDestroy, OnInit {
 
   name: string = 'Yoenis Celedonio';
 
+  //Referente al formulario de edición
+  public form: FormGroup;
+
   //métodos
-  constructor(private myServicio: SancionadosService, private myTabla: TableFactoryService, private ruta: Router) {}
+  constructor(
+    private myServicio: SancionadosService,
+    private myTabla: TableFactoryService,
+    private ruta: Router,
+    private modalService: NgbModal,
+    private formBuilder: FormBuilder
+  ) {}
 
   ngOnInit() {
     this.sancionados = this.myServicio.getSancionados().subscribe(data => {
@@ -100,8 +121,23 @@ export class SancionadosComponent implements AfterViewInit, OnDestroy, OnInit {
     $(document).on('click', '#btnEditar', $event => {
       let row = this.myTabla.getRowSelected();
       //console.log(row.id);
-      //Abriendo la ventana modal para edición
-      //this.openEditSancionado(row);
+
+      //Elementos del formulario
+      this.form = this.formBuilder.group({
+        id: [row.id],
+        nombre_completo: [row.nombre_completo, [Validators.required]],
+        solapin: [row.solapin, [Validators.required]],
+        grupo: [row.grupo, [Validators.required]]
+      });
+
+      this.modalService.open(this.content).result.then(
+        result => {
+          this.closeResult = `Closed with: ${result}`;
+        },
+        reason => {
+          this.closeResult = `Dismissed `;
+        }
+      );
     });
 
     //Evento click del botón Eliminar
@@ -159,5 +195,27 @@ export class SancionadosComponent implements AfterViewInit, OnDestroy, OnInit {
       // Call the dtTrigger to rerender again
       this.dtTrigger.next();
     });
+  }
+
+  onSubmit() {
+    const result: any = Object.assign({}, this.form.value);
+    let id = this.form.controls.id.value;
+    this.myServicio.editSancionado(id, result).subscribe(
+      data => {
+        //respuesta correcta
+        this.confirmSwal.show();
+      },
+      error => {
+        //respuesta de error
+      }
+    );
+    // alert(this.form.controls.nombre_completo.value);
+    //this.form.reset();
+  }
+
+  cerrarVentana() {
+    this.modalService.dismissAll();
+    //Refrescar la vista
+    this.ruta.navigate(['sancionados']);
   }
 }

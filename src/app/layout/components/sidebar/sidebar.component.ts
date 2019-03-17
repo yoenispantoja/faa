@@ -13,7 +13,8 @@ export class SidebarComponent implements OnInit {
   collapsed: boolean;
   showMenu: string;
   pushRightClass: string;
-  url = environment.apiUrl + '/indisciplinas_por_categorias'; //url del servicio del API
+  urlIncidenciasCategoria = environment.apiUrl + '/indisciplinas_por_categorias'; //url del servicio del API
+  urlTableroResumen = environment.apiUrl + '/tablero_resumen'; //url del servicio del API
 
   @Output() collapsedEvent = new EventEmitter<boolean>();
 
@@ -78,6 +79,10 @@ export class SidebarComponent implements OnInit {
   }
 
   GoIncidenciasCategoria() {
-    window.location.href = this.url;
+    window.location.href = this.urlIncidenciasCategoria;
+  }
+
+  GoTableroResumen() {
+    window.location.href = this.urlTableroResumen;
   }
 }

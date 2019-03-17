@@ -29,15 +29,15 @@
             <i class="fa fa-fw fa-print text-success"></i>
             <span>Incidencias por Categoría</span>
         </a>
-        <a routerLink="/reincidentes" [routerLinkActive]="['router-link-active']" class="list-group-item">
+        <a (click)="GoTableroResumen()" class="list-group-item mouse-click">
             <i class="fa fa-fw fa-print text-success"></i>
-            <span>Reincidentes</span>
+            <span>Tablero resumen</span>
         </a>
-        <a routerLink="/en-proceso" [routerLinkActive]="['router-link-active']" class="list-group-item">
+        <a [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-print text-success"></i>
             <span>Sanciones en proceso</span>
         </a>
-        <a routerLink="/procesadas" [routerLinkActive]="['router-link-active']" class="list-group-item">
+        <a [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-print text-success"></i>
             <span>Sanciones procesadas</span>
         </a>

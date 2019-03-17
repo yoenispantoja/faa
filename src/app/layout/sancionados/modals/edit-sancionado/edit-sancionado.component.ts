@@ -7,11 +7,11 @@ import { Router, NavigationEnd } from '@angular/router';
 
 
 @Component({
-  selector: 'app-add-sancionado',
-  templateUrl: './add-sancionado.component.html',
-  styleUrls: ['./add-sancionado.component.scss']
+  selector: 'app-edit-sancionado',
+  templateUrl: './edit-sancionado.component.html',
+  styleUrls: ['./edit-sancionado.component.scss']
 })
-export class AddSancionadoComponent implements OnInit {
+export class EditSancionadoComponent implements OnInit {
   @ViewChild('confirmSwal') private confirmSwal: SwalComponent;
   @Input() src;
   closeResult: string;
@@ -38,7 +38,7 @@ export class AddSancionadoComponent implements OnInit {
   onSubmit() {
     const result: any = Object.assign({}, this.form.value);
 
-    this.myServicio.addSancionado(result).subscribe(
+    this.myServicio.editSancionado(4, result).subscribe(
       data => {
         //respuesta correcta
         this.confirmSwal.show();      

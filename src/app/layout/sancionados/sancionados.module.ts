@@ -7,7 +7,7 @@ import { SweetAlert2Module } from '@toverux/ngx-sweetalert2'; //para los sweetAl
 import { SancionadosRoutingModule } from './sancionados-routing.module';
 import { SancionadosComponent } from './sancionados.component';
 import { PageHeaderModule } from './../../shared';
-import { AddSancionadoComponent } from './modals/add-sancionado/add-sancionado.component';
+import { EditSancionadoComponent } from './modals/edit-sancionado/edit-sancionado.component';
 
 
 @NgModule({
@@ -24,6 +24,6 @@ import { AddSancionadoComponent } from './modals/add-sancionado/add-sancionado.c
       cancelButtonClass: 'btn'
     })
   ],
-  declarations: [SancionadosComponent, AddSancionadoComponent]
+  declarations: [SancionadosComponent, EditSancionadoComponent]
 })
 export class SancionadosModule {}

@@ -82,7 +82,7 @@ export class TableFactoryService {
 
             doc.content.splice(0, 1, {}, {
               text: [{
-                text: 'SGFAA',
+                text: 'Sistema de Control Disciplinario - CITEC',
                 bold: true,
                 fontSize: 12,
                 alignment: 'center'

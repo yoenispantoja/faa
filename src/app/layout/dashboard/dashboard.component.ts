@@ -20,65 +20,71 @@ export class DashboardComponent implements OnInit {
   public alerts: Array<any> = [];
   public sliders: Array<any> = [];
   indisciplinas: any;
-  ultimasdiez:any;
-  sancionados: any;
-  ultimosdiez:any;
+  indisciplinasconMedida:any;
+  ultimasdiez: any;
+  sancionados: any;  
+  ultimosdiez: any;
   demandantes: any;
   categorias: any;
   totalI: number;
   totalS: number;
   totalD: number;
-  solapin: string= urlSolapin;
+  totalM: number;
+  solapin: string = urlSolapin;
 
   //Gráficos
   // bar chart
   public barChartOptions: any = {
     scaleShowVerticalLines: false,
     responsive: true,
-      scales: {
-          yAxes: [{
-              ticks: {
-                  beginAtZero: true,
-                  stepSize: 2,
-                  max: 16,                 
-              },
-          }],
-          xAxes: [{
-              ticks: {
-                  fontSize: 10
-              }     
-            }]
-      },
-      
-    
+    scales: {
+      yAxes: [
+        {
+          ticks: {
+            beginAtZero: true,
+            stepSize: 2,
+            max: 16
+          }
+        }
+      ],
+      xAxes: [
+        {
+          ticks: {
+            fontSize: 10
+          }
+        }
+      ]
+    }
   };
   public barChartLabels: string[] = [];
   public barChartType: string;
   public barChartLegend: boolean;
-    // CHART COLOR.
+  // CHART COLOR.
   public barChartColors = [
-        { // 2nd Year.
-            backgroundColor: 'rgba(30, 169, 224, 0.8)'
-        }
-    ]
+    {
+      // 2nd Year.
+      backgroundColor: 'rgba(30, 169, 224, 0.8)'
+    }
+  ];
 
   public barChartData: Array<any> = [
-      { 
-        data: [], 
-        label: 'Cantidades por categoría' 
-    }];
+    {
+      data: [],
+      label: 'Cantidades por categoría'
+    }
+  ];
 
   constructor(
     private servicioIndisciplinas: IndisciplinasService,
     private servicioSancionados: SancionadosService,
     private servicioDemandantes: DemandantesService,
-    private servicioCategorias: CategoriasService,
+    private servicioCategorias: CategoriasService,   
     private servicioChart: ChartsService,
     private router: Router
   ) {
     this.sliders.push(
       {
-        imagePath: 'assets/images/slider1.jpg',
+        imagePath: 'assets/images/slider3.jpg',
         label: '¿Qué es el SCD?',
         text: 'Sistema de Control Disciplinario.'
       },
@@ -93,8 +99,6 @@ export class DashboardComponent implements OnInit {
         text: 'Al personal con deberes en el trabajo educativo: profesores guías, profesores principales, vicedecanos.'
       }
     );
-
-    
   }
 
   ngOnInit() {
@@ -123,36 +127,38 @@ export class DashboardComponent implements OnInit {
       this.totalD = this.demandantes['data'].length;
     });
 
+    //Medidas
+    this.servicioIndisciplinas.getIndisciplinasConMedida().subscribe(data => {
+      this.indisciplinasconMedida = data; //lleno los demandantes desde el servicio
+      this.totalM = this.indisciplinasconMedida['data'].length;
+    });
+
     //Categorias
     this.servicioCategorias.getCategorias().subscribe(data => {
-        this.categorias = data; //lleno las categorias desde el servicio        
-        //lleno las labels del chart con ella
-        for (let index = 0; index < this.categorias.length; index++) {            
-            this.barChartLabels[index]=(this.categorias[index].nombre);
-        }     
-    }); 
+      this.categorias = data; //lleno las categorias desde el servicio
+      //lleno las labels del chart con ella
+      for (let index = 0; index < this.categorias.length; index++) {
+        this.barChartLabels[index] = this.categorias[index].nombre;
+      }
+    });
 
     //Cargando los datos del Chart
-    this.servicioChart.getDataChart().subscribe(data=>{
-        this.barChartData = data as any[];        
+    this.servicioChart.getDataChart().subscribe(data => {
+      this.barChartData = data as any[];
     });
-      
+
     //Resumen de los últimos 5
-    this.servicioIndisciplinas.getUltimasIndisciplinas().subscribe(data=>{
-        this.ultimasdiez= data;
-    });  
-
-    this.servicioSancionados.getUltimosSancionados().subscribe(data=>{
-        this.ultimosdiez = data;
+    this.servicioIndisciplinas.getUltimasIndisciplinas().subscribe(data => {
+      this.ultimasdiez = data;
     });
 
-      
+    this.servicioSancionados.getUltimosSancionados().subscribe(data => {
+      this.ultimosdiez = data;
+    });
   }
 
   public closeAlert(alert: any) {
     const index: number = this.alerts.indexOf(alert);
     this.alerts.splice(index, 1);
   }
-
-  
 }

@@ -34,7 +34,7 @@ export class MedidasComponent implements AfterViewInit, OnDestroy, OnInit {
   columnas = [
     {
       //columnas del dataTable
-      data: 'id',
+      data: 'referencia',
       className: 'text-center'
     },
     {
@@ -62,7 +62,7 @@ export class MedidasComponent implements AfterViewInit, OnDestroy, OnInit {
   ];
 
   url = environment.apiUrl + '/medidas'; //url del servicio del API
-  titulo = 'Listado de medidas'; //titulo del documento que se exportará
+  titulo = 'Listado de medidas aplicadas'; //titulo del documento que se exportará
   orientacion = 'Portrait'; //orientación de la página del documento que se exportará
   closeResult: string;
 

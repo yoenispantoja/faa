@@ -37,7 +37,7 @@ export class IndisciplinasComponent implements AfterViewInit, OnDestroy, OnInit 
   columnas = [
     {
       //columnas del dataTable
-      data: 'id',
+      data: 'referencia',
       className: 'text-center'
     },
     {
