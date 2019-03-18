@@ -8,6 +8,8 @@ import { TranslateService } from '@ngx-translate/core';
     styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+    userLogged:string;
+
     public pushRightClass: string;
 
     constructor(private translate: TranslateService, public router: Router) {
@@ -30,6 +32,7 @@ export class HeaderComponent implements OnInit {
 
     ngOnInit() {
         this.pushRightClass = 'push-right';
+        this.userLogged = localStorage.getItem('userLogged')
     }
 
     isToggled(): boolean {
@@ -49,6 +52,8 @@ export class HeaderComponent implements OnInit {
 
     onLoggedout() {
         localStorage.removeItem('isLoggedin');
+        localStorage.removeItem('userLogged');
+
     }
 
     changeLang(language: string) {

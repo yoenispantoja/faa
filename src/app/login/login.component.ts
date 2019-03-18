@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { routerTransition } from '../router.animations';
 import { LoginService } from '../shared/services/login.service';
+import { SwalComponent } from '@toverux/ngx-sweetalert2'; //para los sweetAlerts
 
 
 @Component({
@@ -12,9 +13,10 @@ import { LoginService } from '../shared/services/login.service';
   animations: [routerTransition()]
 })
 export class LoginComponent implements OnInit {
-    username= "ypantojaz";
-    password= "Amelita2019*";
-  constructor(private translate: TranslateService, public router: Router, private loginService: LoginService) {
+   @ViewChild('alertSwal') private alertSwal: SwalComponent;
+    username= "";
+    password= "";
+  constructor(private translate: TranslateService, public ruta: Router, private loginService: LoginService) {
     this.translate.addLangs(['en', 'fr', 'ur', 'es', 'it', 'fa', 'de', 'zh-CHS']);
     this.translate.setDefaultLang('en');
     const browserLang = this.translate.getBrowserLang();
@@ -24,9 +26,14 @@ export class LoginComponent implements OnInit {
   ngOnInit() {}
 
   onLoggedin() {
-    //localStorage.setItem('isLoggedin', 'true');
+      
       this.loginService.login(this.username, this.password).subscribe(data => {
-          alert(data);
+          if(data['id']) {
+            localStorage.setItem('isLoggedin', 'true');
+            localStorage.setItem('userLogged',data['name']);
+            this.ruta.navigate(['/dashboard']);
+          }
+          else this.alertSwal.show();
       });
 
       

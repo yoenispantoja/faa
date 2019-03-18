@@ -14,7 +14,7 @@
 
             <li class="nav-item dropdown" ngbDropdown>
                 <a href="javascript:void(0)" class="nav-link" ngbDropdownToggle>
-                    <i class="fa fa-user"></i> Bienvenido(a), Yoenis Pantoja <b class="caret"></b>
+                    <i class="fa fa-user"></i> Bienvenido(a), {{userLogged}} <b class="caret"></b>
                 </a>
                 <div class="dropdown-menu-right" ngbDropdownMenu>
                     <a class="dropdown-item" [routerLink]="['/login']" (click)="onLoggedout()">
