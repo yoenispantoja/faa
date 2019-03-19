@@ -26,7 +26,7 @@ export class SancionadosComponent implements AfterViewInit, OnDestroy, OnInit {
   @ViewChild('successSwal') private successSwal: SwalComponent;
   @ViewChild('confirmSwal') private confirmSwal: SwalComponent;
 
-  @ViewChild('content') private content: NgbModal;
+  @ViewChild('modalSancionado') private modalSancionado: NgbModal;
 
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
@@ -80,7 +80,7 @@ export class SancionadosComponent implements AfterViewInit, OnDestroy, OnInit {
 
     {
       defaultContent:
-        "<button type='button' id='btnDetalles' class='btn btn-sm btn-info btn-detail' title='Ver detalles'><i class='fa fa-search-plus vermas'></i></button> <button type='button' id='btnEditar' (click)='open(content)' class='btn btn-sm btn-warning btn-detail' title='Editar'><i class='fa fa-edit vermas'></i></button> <button type='button' id='btnEliminar' class='btn btn-sm btn-danger btn-detail' title='Eliminar'><i class='fa fa-trash vermas'></i></button>"
+        "<button type='button' id='btnDetalles' class='btn btn-sm btn-info btn-detail' title='Ver detalles'><i class='fa fa-search-plus vermas'></i></button> <button type='button' id='btnEditarSancionado' (click)='open(content)' class='btn btn-sm btn-warning btn-detail' title='Editar'><i class='fa fa-edit vermas'></i></button> <button type='button' id='btnEliminar' class='btn btn-sm btn-danger btn-detail' title='Eliminar'><i class='fa fa-trash vermas'></i></button>"
     }
   ];
 
@@ -118,7 +118,7 @@ export class SancionadosComponent implements AfterViewInit, OnDestroy, OnInit {
     });
 
     //Evento click del botón Editar
-    $(document).on('click', '#btnEditar', $event => {
+    $(document).on('click', '#btnEditarSancionado', $event => {
       let row = this.myTabla.getRowSelected();
       //console.log(row.id);
 
@@ -129,10 +129,11 @@ export class SancionadosComponent implements AfterViewInit, OnDestroy, OnInit {
         solapin: [row.solapin, [Validators.required]],
         grupo: [row.grupo, [Validators.required]]
       });
-
-      this.modalService.open(this.content).result.then(
+      
+      this.modalService.open(this.modalSancionado).result.then(
         result => {
           this.closeResult = `Closed with: ${result}`;
+          this.modalService.dismissAll();
         },
         reason => {
           this.closeResult = `Dismissed `;

@@ -10,6 +10,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './shared';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 
 
@@ -30,7 +31,7 @@ export const createTranslateLoader = (http: HttpClient) => {
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    NgbModule.forRoot(),
+    NgbModule.forRoot(),    
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -41,7 +42,7 @@ export const createTranslateLoader = (http: HttpClient) => {
     AppRoutingModule
   ],
   declarations: [AppComponent],
-  providers: [AuthGuard],
+  providers: [AuthGuard, { provide: LocationStrategy, useClass: HashLocationStrategy }],
   bootstrap: [AppComponent]  
   
 })

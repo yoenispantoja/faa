@@ -14,7 +14,7 @@ import { PageHeaderModule } from '../../shared';
     DemandantesRoutingModule,
     PageHeaderModule,
     ReactiveFormsModule,
-    DataTablesModule,  
+    DataTablesModule,
     SweetAlert2Module.forRoot({
       buttonsStyling: false,
       customClass: 'modal-content',
@@ -22,6 +22,6 @@ import { PageHeaderModule } from '../../shared';
       cancelButtonClass: 'btn'
     })
   ],
-  declarations: [DemandantesComponent]
+  declarations: [DemandantesComponent] 
 })
 export class DemandantesModule {}

@@ -7,10 +7,10 @@ import { PageHeaderModule } from './../../shared';
 import { DataTablesModule } from 'angular-datatables'; //para los datatables
 import { ReactiveFormsModule } from '@angular/forms'; //para los formularios
 import { SweetAlert2Module } from '@toverux/ngx-sweetalert2';
-import { AddMedidasComponent } from './modals/add-medidas.component'; //para los sweetAlerts
+
 
 @NgModule({
-  declarations: [MedidasComponent, AddMedidasComponent],
+  declarations: [MedidasComponent],
   imports: [
     CommonModule, 
     MedidasRoutingModule, 

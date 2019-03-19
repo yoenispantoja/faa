@@ -50,7 +50,7 @@ var IndisciplinasRoutingModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div [@routerTransition]>\n    <app-page-header [heading]=\"'Listado de indisciplinas'\" [icon]=\"'fa-fire'\"></app-page-header>\n\n    <div class=\"row\">\n        <div class=\"col-md-2\">\n            <app-add-indisciplina></app-add-indisciplina>\n        </div>\n    </div>\n    <br>\n    <div class=\"row\">\n        <div class=\"col-md-12\">\n            <div class=\"table-responsive\">\n                <table datatable [dtOptions]=\"dtOptions\" [dtTrigger]=\"dtTrigger\" id=\"tbIndisciplinas\" [ngClass]=\"'table table-bordered table-hover display nowrap'\" *ngIf=\"indisciplinas\" style=\"width:100%\">\n                    <thead>\n                        <tr>\n                            <th>No</th>\n                            <th>Categoria</th>\n                            <th>Implicados</th>\n                            <th>Fecha</th>\n                            <th>Clasificacion</th>\n                            <th>Procesada</th>\n                            <th>Demandante</th>\n                            <th>Descripción</th>\n                            <th>Medida</th>\n                            <th class=\"thOperations\" width=\"50px\"></th>\n                        </tr>\n                    </thead>\n                </table>\n            </div>\n        </div>\n    </div>\n\n    <swal #successSwal title=\"Información\" text=\"Registro eliminado\" type=\"success\" [showCancelButton]=\"false\" [focusCancel]=\"true\">\n    </swal>\n\n    <swal #questionSwal title=\"Información\" text=\"¿Está seguro de eliminar este registro?\" type=\"question\" [showCancelButton]=\"true\" [focusCancel]=\"true\" (confirm)=\"eliminarRegistro()\">\n    </swal>\n\n    <!-- /.row -->\n</div>"
+module.exports = "<div [@routerTransition]>\n    <app-page-header [heading]=\"'Listado de indisciplinas'\" [icon]=\"'fa-fire'\"></app-page-header>\n\n    <div class=\"row\">\n        <div class=\"col-md-2\">\n            <app-add-indisciplina></app-add-indisciplina>\n        </div>\n    </div>\n    <br>\n    <div class=\"row\">\n        <div class=\"col-md-12\">\n            <div class=\"table-responsive\">\n                <table datatable [dtOptions]=\"dtOptions\" [dtTrigger]=\"dtTrigger\" id=\"tbIndisciplinas\" [ngClass]=\"'table table-bordered table-hover display nowrap'\" *ngIf=\"indisciplinas\" style=\"width:100%\">\n                    <thead>\n                        <tr>\n                            <th>Ref.</th>\n                            <th>Categoría</th>\n                            <th>Implicados</th>\n                            <th>Fecha</th>\n                            <th>Clasificación</th>\n                            <th>Demandante</th>\n                            <th class=\"thOperations\" width=\"50px\"></th>\n                        </tr>\n                    </thead>\n                </table>\n            </div>\n        </div>\n    </div>\n\n    <swal #successSwal title=\"Información\" text=\"Registro eliminado\" type=\"success\" [showCancelButton]=\"false\" [focusCancel]=\"true\">\n    </swal>\n\n    <swal #questionSwal title=\"Información\" text=\"¿Está seguro de eliminar este registro?\" type=\"question\" [showCancelButton]=\"true\" [focusCancel]=\"true\" (confirm)=\"eliminarRegistro()\">\n    </swal>\n\n    <!-- /.row -->\n</div>"
 
 /***/ }),
 
@@ -83,6 +83,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _toverux_ngx_sweetalert2__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @toverux/ngx-sweetalert2 */ "./node_modules/@toverux/ngx-sweetalert2/esm5/toverux-ngx-sweetalert2.js");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
 /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -100,18 +101,22 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
  //para los sweetAlerts
 
 
+
 var urlSolapin = "http://directorio.uci.cu/sites/all/modules/custom/directorio_de_personas/display_foto.php?id=";
 var IndisciplinasComponent = /** @class */ (function () {
     //métodos
-    function IndisciplinasComponent(myServicio, myTabla) {
+    function IndisciplinasComponent(myServicio, myTabla, ruta, route) {
         this.myServicio = myServicio;
         this.myTabla = myTabla;
+        this.ruta = ruta;
+        this.route = route;
         this.dtTrigger = new rxjs__WEBPACK_IMPORTED_MODULE_6__["Subject"]();
         //**** Parámetros del dataTable */
         this.columnas = [
             {
                 //columnas del dataTable
-                data: 'id'
+                data: 'referencia',
+                className: 'text-center'
             },
             {
                 data: 'categoria.nombre'
@@ -131,27 +136,14 @@ var IndisciplinasComponent = /** @class */ (function () {
                 }
             },
             {
-                data: 'clasificacion'
-            },
-            {
-                data: function (row, type, set) {
-                    if (row.procesada)
-                        return 'Sí';
-                    else
-                        return 'No';
-                }
+                data: 'clasificacion',
+                className: 'text-center'
             },
             {
                 data: 'demandante.nombre_completo'
             },
             {
-                data: 'descripcion'
-            },
-            {
-                data: 'medida'
-            },
-            {
-                defaultContent: "<button type='button' id='btnEditar' class='btn btn-sm btn-warning btn-detail' title='Editar'><i class='fa fa-edit vermas'></i></button> <button type='button' id='btnEliminar' class='btn btn-sm btn-danger btn-detail' title='Eliminar'><i class='fa fa-trash vermas'></i></button>"
+                defaultContent: "<button type='button' id='btnVerDetalles' class='btn btn-sm btn-info btn-detail' title='Ver detalles'><i class='fa fa-search-plus vermas'></i></button> <button type='button' id='btnEliminar' class='btn btn-sm btn-danger btn-detail' title='Eliminar'><i class='fa fa-trash vermas'></i></button>"
             }
         ];
         this.url = _environments_environment__WEBPACK_IMPORTED_MODULE_7__["environment"].apiUrl + '/indisciplinas'; //url del servicio del API
@@ -165,12 +157,11 @@ var IndisciplinasComponent = /** @class */ (function () {
             _this.indisciplinas = data; //lleno los indisciplinas desde el servicio
         });
         this.dtOptions = this.myTabla.getDataTable(this.url, this.columnas, this.titulo, this.orientacion);
-        //Evento click del botón Editar
-        $(document).on('click', '#btnEditar', function ($event) {
+        //Evento click del botón Ver Detalles
+        $(document).on('click', '#btnVerDetalles', function ($event) {
             var row = _this.myTabla.getRowSelected();
-            //console.log(row.id);
-            //Abriendo la ventana modal para edición
-            //this.openEditIndisciplina(row);
+            //Redirigir a otra ruta pasándole el id
+            _this.ruta.navigate(['indisciplina-detalles', { id: row.id }]);
         });
         //Evento click del botón Eliminar
         $(document).on('click', '#btnEliminar', function ($event) {
@@ -225,7 +216,10 @@ var IndisciplinasComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./indisciplinas.component.scss */ "./src/app/layout/indisciplinas/indisciplinas.component.scss")],
             animations: [Object(_router_animations__WEBPACK_IMPORTED_MODULE_0__["routerTransition"])()]
         }),
-        __metadata("design:paramtypes", [_shared_services_indisciplinas_service__WEBPACK_IMPORTED_MODULE_2__["IndisciplinasService"], _shared_services_table_factory_service__WEBPACK_IMPORTED_MODULE_3__["TableFactoryService"]])
+        __metadata("design:paramtypes", [_shared_services_indisciplinas_service__WEBPACK_IMPORTED_MODULE_2__["IndisciplinasService"],
+            _shared_services_table_factory_service__WEBPACK_IMPORTED_MODULE_3__["TableFactoryService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_8__["Router"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_8__["ActivatedRoute"]])
     ], IndisciplinasComponent);
     return IndisciplinasComponent;
 }());
@@ -494,140 +488,6 @@ var AddIndisciplinaComponent = /** @class */ (function () {
             _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"]])
     ], AddIndisciplinaComponent);
     return AddIndisciplinaComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/shared/services/categorias.service.ts":
-/*!*******************************************************!*\
-  !*** ./src/app/shared/services/categorias.service.ts ***!
-  \*******************************************************/
-/*! exports provided: CategoriasService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CategoriasService", function() { return CategoriasService; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../environments/environment */ "./src/environments/environment.ts");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-var httpOptions = {
-    headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({
-        'Content-Type': 'application/json',
-        Authorization: 'my-auth-token',
-        contentType: 'false',
-        processData: 'false'
-    })
-};
-var CategoriasService = /** @class */ (function () {
-    function CategoriasService(myHttp) {
-        this.myHttp = myHttp;
-        this.url = _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].apiUrl + '/categorias'; //url del servicio del API
-    }
-    //Devuelve la lista de los categorias
-    CategoriasService.prototype.getCategorias = function () {
-        return this.myHttp.get(this.url);
-    };
-    //Aficiona un categoria
-    CategoriasService.prototype.addCategoria = function (categoria) {
-        return this.myHttp.post(this.url, categoria, httpOptions);
-    };
-    //Actualiza un categoria
-    CategoriasService.prototype.editCategoria = function (id, categoria) {
-        return this.myHttp.put(this.url + '/' + id, categoria, httpOptions);
-    };
-    //Elimina un categoria
-    CategoriasService.prototype.deleteCategoria = function (id) {
-        return this.myHttp.delete(this.url + '/' + id, httpOptions);
-    };
-    CategoriasService = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
-            providedIn: 'root'
-        }),
-        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
-    ], CategoriasService);
-    return CategoriasService;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/shared/services/indisciplinas.service.ts":
-/*!**********************************************************!*\
-  !*** ./src/app/shared/services/indisciplinas.service.ts ***!
-  \**********************************************************/
-/*! exports provided: IndisciplinasService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IndisciplinasService", function() { return IndisciplinasService; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../environments/environment */ "./src/environments/environment.ts");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-var httpOptions = {
-    headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({
-        'Content-Type': 'application/json',
-        'Authorization': 'my-auth-token',
-        'contentType': 'false',
-        'processData': 'false',
-    })
-};
-var IndisciplinasService = /** @class */ (function () {
-    function IndisciplinasService(myHttp) {
-        this.myHttp = myHttp;
-        this.url = _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].apiUrl + '/indisciplinas'; //url del servicio del API
-    }
-    //Devuelve la lista de los indisciplinas
-    IndisciplinasService.prototype.getIndisciplinas = function () {
-        return this.myHttp.get(this.url);
-    };
-    //Aficiona un indisciplina
-    IndisciplinasService.prototype.addIndisciplina = function (indisciplina) {
-        return this.myHttp.post(this.url, indisciplina, httpOptions);
-    };
-    //Actualiza un indisciplina
-    IndisciplinasService.prototype.editIndisciplina = function (id, indisciplina) {
-        return this.myHttp.put(this.url + '/' + id, indisciplina, httpOptions);
-    };
-    //Elimina un indisciplina
-    IndisciplinasService.prototype.deleteIndisciplina = function (id) {
-        return this.myHttp.delete(this.url + '/' + id, httpOptions);
-    };
-    IndisciplinasService = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
-            providedIn: 'root'
-        }),
-        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
-    ], IndisciplinasService);
-    return IndisciplinasService;
 }());
 
 

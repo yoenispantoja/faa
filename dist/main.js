@@ -29,17 +29,20 @@ var map = {
 	],
 	"./charts/charts.module": [
 		"./src/app/layout/charts/charts.module.ts",
+		"default~charts-charts-module~dashboard-dashboard-module",
 		"common",
 		"charts-charts-module"
 	],
 	"./dashboard/dashboard.module": [
 		"./src/app/layout/dashboard/dashboard.module.ts",
+		"default~charts-charts-module~dashboard-dashboard-module",
 		"common",
 		"dashboard-dashboard-module"
 	],
 	"./demandantes/demandantes.module": [
 		"./src/app/layout/demandantes/demandantes.module.ts",
-		"default~demandantes-demandantes-module~indisciplinas-indisciplinas-module~sancionados-sancionados-mo~364051b4",
+		"default~demandantes-demandantes-module~indisciplinas-indisciplinas-module~login-login-module~medidas~64a78202",
+		"default~demandantes-demandantes-module~indisciplinas-indisciplinas-module~medidas-medidas-module~san~816952be",
 		"common",
 		"demandantes-demandantes-module"
 	],
@@ -53,9 +56,15 @@ var map = {
 		"common",
 		"grid-grid-module"
 	],
+	"./indisciplina-detalles/indisciplina-detalles.module": [
+		"./src/app/layout/indisciplina-detalles/indisciplina-detalles.module.ts",
+		"common",
+		"indisciplina-detalles-indisciplina-detalles-module"
+	],
 	"./indisciplinas/indisciplinas.module": [
 		"./src/app/layout/indisciplinas/indisciplinas.module.ts",
-		"default~demandantes-demandantes-module~indisciplinas-indisciplinas-module~sancionados-sancionados-mo~364051b4",
+		"default~demandantes-demandantes-module~indisciplinas-indisciplinas-module~login-login-module~medidas~64a78202",
+		"default~demandantes-demandantes-module~indisciplinas-indisciplinas-module~medidas-medidas-module~san~816952be",
 		"default~blank-page-blank-page-module~indisciplinas-indisciplinas-module",
 		"common",
 		"indisciplinas-indisciplinas-module"
@@ -66,16 +75,30 @@ var map = {
 	],
 	"./login/login.module": [
 		"./src/app/login/login.module.ts",
+		"default~demandantes-demandantes-module~indisciplinas-indisciplinas-module~login-login-module~medidas~64a78202",
 		"common",
 		"login-login-module"
+	],
+	"./medidas/medidas.module": [
+		"./src/app/layout/medidas/medidas.module.ts",
+		"default~demandantes-demandantes-module~indisciplinas-indisciplinas-module~login-login-module~medidas~64a78202",
+		"default~demandantes-demandantes-module~indisciplinas-indisciplinas-module~medidas-medidas-module~san~816952be",
+		"common",
+		"medidas-medidas-module"
 	],
 	"./not-found/not-found.module": [
 		"./src/app/not-found/not-found.module.ts",
 		"not-found-not-found-module"
 	],
+	"./sancionado-detalles/sancionado-detalles.module": [
+		"./src/app/layout/sancionado-detalles/sancionado-detalles.module.ts",
+		"common",
+		"sancionado-detalles-sancionado-detalles-module"
+	],
 	"./sancionados/sancionados.module": [
 		"./src/app/layout/sancionados/sancionados.module.ts",
-		"default~demandantes-demandantes-module~indisciplinas-indisciplinas-module~sancionados-sancionados-mo~364051b4",
+		"default~demandantes-demandantes-module~indisciplinas-indisciplinas-module~login-login-module~medidas~64a78202",
+		"default~demandantes-demandantes-module~indisciplinas-indisciplinas-module~medidas-medidas-module~san~816952be",
 		"common",
 		"sancionados-sancionados-module"
 	],
@@ -152,7 +175,7 @@ var AppRoutingModule = /** @class */ (function () {
     }
     AppRoutingModule = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
-            imports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forRoot(routes)],
+            imports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forRoot(routes, { useHash: true })],
             exports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]]
         })
     ], AppRoutingModule);
@@ -170,7 +193,7 @@ var AppRoutingModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<router-outlet></router-outlet>\r\n"
+module.exports = "<router-outlet></router-outlet>"
 
 /***/ }),
 
@@ -279,6 +302,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
 // AoT requires an exported function for factories
 var createTranslateLoader = function (http) {
     /* for development
@@ -310,7 +334,7 @@ var AppModule = /** @class */ (function () {
                 _app_routing_module__WEBPACK_IMPORTED_MODULE_8__["AppRoutingModule"]
             ],
             declarations: [_app_component__WEBPACK_IMPORTED_MODULE_9__["AppComponent"]],
-            providers: [_shared__WEBPACK_IMPORTED_MODULE_10__["AuthGuard"]],
+            providers: [_shared__WEBPACK_IMPORTED_MODULE_10__["AuthGuard"], { provide: _angular_common__WEBPACK_IMPORTED_MODULE_0__["LocationStrategy"], useClass: _angular_common__WEBPACK_IMPORTED_MODULE_0__["HashLocationStrategy"] }],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_9__["AppComponent"]]
         })
     ], AppModule);
@@ -438,7 +462,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\">\r\n    <div class=\"col-xl-12\">\r\n        <h2 class=\"page-header\">\r\n            {{heading}}\r\n        </h2>\r\n        <ol class=\"breadcrumb\">\r\n            <li class=\"breadcrumb-item\">\r\n                <i class=\"fa fa-dashboard\"></i> <a href=\"Javascript:void(0)\" [routerLink]=\"['/dashboard']\">Dashboard</a>\r\n            </li>\r\n            <li class=\"breadcrumb-item active\"><i class=\"fa {{icon}}\"></i> {{heading}}</li>\r\n        </ol>\r\n    </div>\r\n</div>\r\n"
+module.exports = "<div class=\"row\">\r\n    <div class=\"col-xl-12\">\r\n        <h2 class=\"page-header\">\r\n            {{heading}}\r\n        </h2>\r\n        <ol class=\"breadcrumb\">\r\n            <li class=\"breadcrumb-item\">\r\n                <i class=\"fa fa-dashboard\"></i> <a href=\"Javascript:void(0)\" [routerLink]=\"['/dashboard']\"> Dashboard</a>\r\n            </li>\r\n            <li class=\"breadcrumb-item active\"><i class=\"fa {{icon}}\"></i> {{heading}}</li>\r\n        </ol>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -549,7 +573,7 @@ var PageHeaderModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"card text-white bg-{{bgClass}}\">\r\n    <div class=\"card-header\">\r\n        <div class=\"row\">\r\n            <div class=\"col col-xs-3\">\r\n                <i class=\"fa {{icon}} fa-5x\"></i>\r\n            </div>\r\n            <div class=\"col col-xs-9 text-right\">\r\n                <div class=\"d-block huge\">{{count}}</div>\r\n                <div class=\"d-block\">{{label}}</div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <div class=\"card-footer\">\r\n        <span class=\"float-left\">View Details {{data}}</span>\r\n        <a href=\"javascript:void(0)\" class=\"float-right card-inverse\">\r\n            <span ><i class=\"fa fa-arrow-circle-right\"></i></span>\r\n        </a>\r\n    </div>\r\n</div>\r\n"
+module.exports = "<div class=\"card text-white bg-{{bgClass}}\">\r\n    <div class=\"card-header\">\r\n        <div class=\"row\">\r\n            <div class=\"col col-xs-3\">\r\n                <i class=\"fa {{icon}} fa-5x\"></i>\r\n            </div>\r\n            <div class=\"col col-xs-9 text-right\">\r\n                <div class=\"d-block huge\">\r\n                    <h1>{{count}}</h1>\r\n                </div>\r\n                <div class=\"d-block\">{{label}}</div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <div class=\"card-footer btn\" (click)=\"GoRoute()\">\r\n        <span class=\"float-left\">Ver detalles {{data}}</span>\r\n        <a class=\"float-right card-inverse\">\r\n            <span><i class=\"fa fa-arrow-circle-right\"></i></span>\r\n        </a>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -575,6 +599,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StatComponent", function() { return StatComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -585,11 +610,16 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
 var StatComponent = /** @class */ (function () {
-    function StatComponent() {
+    function StatComponent(router) {
+        this.router = router;
         this.event = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
     }
     StatComponent.prototype.ngOnInit = function () { };
+    StatComponent.prototype.GoRoute = function () {
+        this.router.navigate(['' + this.route + '']);
+    };
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
         __metadata("design:type", String)
@@ -611,6 +641,10 @@ var StatComponent = /** @class */ (function () {
         __metadata("design:type", Number)
     ], StatComponent.prototype, "data", void 0);
     __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", String)
+    ], StatComponent.prototype, "route", void 0);
+    __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"])(),
         __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"])
     ], StatComponent.prototype, "event", void 0);
@@ -620,7 +654,7 @@ var StatComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./stat.component.html */ "./src/app/shared/modules/stat/stat.component.html"),
             styles: [__webpack_require__(/*! ./stat.component.scss */ "./src/app/shared/modules/stat/stat.component.scss")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
     ], StatComponent);
     return StatComponent;
 }());
@@ -721,8 +755,8 @@ __webpack_require__.r(__webpack_exports__);
 // The list of file replacements can be found in `angular.json`.
 var environment = {
     production: false,
-    //apiUrl: "http://localhost:8000/api"
-    apiUrl: 'http://10.34.32.245:5800/faa/api/public/api'
+    apiUrl: "http://localhost:8000/api"
+    //apiUrl: 'http://10.34.32.245:5800/faa/api/public/api'
 };
 /*
  * For easier debugging in development mode, you can import the following file

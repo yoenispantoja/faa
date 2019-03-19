@@ -8,6 +8,8 @@ import { SweetAlert2Module, SwalComponent } from '@toverux/ngx-sweetalert2'; //p
 import { Subject } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Router, ActivatedRoute } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-medidas',
@@ -19,6 +21,9 @@ export class MedidasComponent implements AfterViewInit, OnDestroy, OnInit {
   //atributos
   @ViewChild('questionSwal') private questionSwal: SwalComponent;
   @ViewChild('successSwal') private successSwal: SwalComponent;
+  @ViewChild('confirmSwal') private confirmSwal: SwalComponent;
+
+  @ViewChild('modalMedida') private modalMedida: NgbModal;
 
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
@@ -57,7 +62,7 @@ export class MedidasComponent implements AfterViewInit, OnDestroy, OnInit {
     },
     {
       defaultContent:
-        "<button type='button' id='btnVerIndisciplina' class='btn btn-sm btn-info btn-detail' title='Ver indisciplina'><i class='fa fa-search-plus vermas'></i></button> <button type='button' id='btnEditar' class='btn btn-sm btn-warning btn-detail' title='Editar medida'><i class='fa fa-edit vermas'></i></button>"
+        "<button type='button' id='btnVerIndisciplina' class='btn btn-sm btn-info btn-detail' title='Ver indisciplina'><i class='fa fa-search-plus vermas'></i></button> <button type='button' id='btnEditarMedida' class='btn btn-sm btn-warning btn-detail' title='Editar medida'><i class='fa fa-edit vermas'></i></button>"
     }
   ];
 
@@ -66,13 +71,21 @@ export class MedidasComponent implements AfterViewInit, OnDestroy, OnInit {
   orientacion = 'Portrait'; //orientación de la página del documento que se exportará
   closeResult: string;
 
+  //Referente al formulario de edición
+  public form: FormGroup;
+
   //métodos
-  constructor(private myServicio: IndisciplinasService, private myTabla: TableFactoryService, private ruta: Router) {}
+  constructor(
+    private myServicio: IndisciplinasService,
+    private myTabla: TableFactoryService,
+    private ruta: Router,
+    private modalServiceMedida: NgbModal,
+    private formBuilder: FormBuilder
+  ) {}
 
   ngOnInit() {
     this.medidas = this.myServicio.getIndisciplinasConMedida().subscribe(data => {
-      this.medidas = data['data']; //lleno los demandantes desde el servicio
-      console.log(this.medidas);
+      this.medidas = data['data']; //lleno los demandantes desde el servicio      
     });
     this.dtOptions = this.myTabla.getDataTable(this.url, this.columnas, this.titulo, this.orientacion);
 
@@ -83,9 +96,23 @@ export class MedidasComponent implements AfterViewInit, OnDestroy, OnInit {
     });
 
     //Evento click del botón Editar
-    $(document).on('click', '#btnEditar', $event => {
+    $(document).on('click', '#btnEditarMedida', $event => {
       let row = this.myTabla.getRowSelected();
-      
+      //Elementos del formulario
+      this.form = this.formBuilder.group({
+        id: [row.id],
+        medida: [row.medida, [Validators.required]]
+      });
+
+      this.modalServiceMedida.open(this.modalMedida).result.then(
+        result => {
+          this.closeResult = `Closed with: ${result}`;
+          this.modalServiceMedida.dismissAll();
+        },
+        reason => {
+          this.closeResult = `Dismissed `;
+        }
+      );
     });
   }
 
@@ -105,5 +132,27 @@ export class MedidasComponent implements AfterViewInit, OnDestroy, OnInit {
       // Call the dtTrigger to rerender again
       this.dtTrigger.next();
     });
+  }
+
+  onSubmit() {
+    const result: any = Object.assign({}, this.form.value);
+    let id = this.form.controls.id.value;
+    this.myServicio.actualizarMedida(id, result).subscribe(
+      data => {
+        //respuesta correcta
+        this.confirmSwal.show();
+      },
+      error => {
+        //respuesta de error
+      }
+    );
+    // alert(this.form.controls.nombre_completo.value);
+    //this.form.reset();
+  }
+
+  cerrarVentana() {
+    this.modalServiceMedida.dismissAll();
+    //Refrescar la vista
+    this.ruta.navigate(['medidas']);
   }
 }

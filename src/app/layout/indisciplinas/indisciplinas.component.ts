@@ -67,7 +67,7 @@ export class IndisciplinasComponent implements AfterViewInit, OnDestroy, OnInit 
     },
     {
       defaultContent:
-        "<button type='button' id='btnVerDetalles' class='btn btn-sm btn-info btn-detail' title='Ver detalles'><i class='fa fa-search-plus vermas'></i></button> <button type='button' id='btnEditar' class='btn btn-sm btn-warning btn-detail' title='Editar'><i class='fa fa-edit vermas'></i></button><button type='button' id='btnEliminar' class='btn btn-sm btn-danger btn-detail' title='Eliminar'><i class='fa fa-trash vermas'></i></button>"
+        "<button type='button' id='btnVerDetalles' class='btn btn-sm btn-info btn-detail' title='Ver detalles'><i class='fa fa-search-plus vermas'></i></button> <button type='button' id='btnEliminar' class='btn btn-sm btn-danger btn-detail' title='Eliminar'><i class='fa fa-trash vermas'></i></button>"
     }
   ];
 
@@ -100,14 +100,7 @@ export class IndisciplinasComponent implements AfterViewInit, OnDestroy, OnInit 
       this.ruta.navigate(['indisciplina-detalles', { id: row.id }]);
     });
 
-    //Evento click del botón Editar
-    $(document).on('click', '#btnEditar', $event => {
-      let row = this.myTabla.getRowSelected();
-      //console.log(row.id);
-      //Abriendo la ventana modal para edición
-      //this.openEditIndisciplina(row);
-    });
-
+    
     //Evento click del botón Eliminar
     $(document).on('click', '#btnEliminar', $event => {
       let row = this.myTabla.getRowSelected();

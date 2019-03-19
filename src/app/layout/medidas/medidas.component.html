@@ -25,5 +25,30 @@
     <swal #questionSwal title="Información" text="¿Está seguro de eliminar este registro?" type="question" [showCancelButton]="true" [focusCancel]="true" (confirm)="eliminarRegistro()">
     </swal>
 
-    <!-- /.row -->
+    <!-- Ventana modal-->
+    <ng-template #modalMedida let-c="close" let-d="dismiss">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="modal-header bg-info text-white">
+                <h5 class="modal-title"><i class="fa fa-gavel"></i> Editar medida</h5>
+                <button type="button" class="close" aria-label="Close" (click)="c('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="">Medida</label>
+                    <input type="hidden" formControlName="id">
+                    <input type="text" formControlName="medida" class="form-control" placeholder="Medida" aria-describedby="helpId">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" (click)="c('Close click')"><i class="fa fa-remove" aria-hidden="true"></i>
+        Cancelar</button>
+                <button type="submit" class="btn btn-primary" [disabled]="form.invalid"><i class="fa fa-save"></i> Guardar</button>
+            </div>
+        </form>
+    </ng-template>
+
+    <swal #confirmSwal title="Información" text="Medida actualizada" type="success" [showCancelButton]="false" [focusCancel]="true" (confirm)="cerrarVentana()">
+    </swal>
 </div>

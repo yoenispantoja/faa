@@ -19,6 +19,7 @@ export class IndisciplinasService {
   url = environment.apiUrl + '/indisciplinas'; //url del servicio del API
   urlUltimasDiez = environment.apiUrl + '/ultimas_indisciplinas'; //url del servicio del API
   urlConMedida = environment.apiUrl + '/medidas'; //url del servicio del API
+  urlEditMedida= environment.apiUrl+'/actualizar_medida' //url del servicio del API
 
   constructor(private myHttp: HttpClient) {}
 
@@ -55,5 +56,10 @@ export class IndisciplinasService {
   //Elimina un indisciplina
   deleteIndisciplina(id: number) {
     return this.myHttp.delete(this.url + '/' + id, httpOptions);
+  }
+
+  //actualiza medida
+  actualizarMedida(id: number, indisciplina: any) {
+    return this.myHttp.put(this.urlEditMedida, indisciplina, httpOptions);
   }
 }

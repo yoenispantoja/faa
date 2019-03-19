@@ -27,14 +27,12 @@
                     <table class="table table-bordered table-striped table-hover display nowrap">
                         <tr class="bg-info">
                             <th>Foto</th>
-                            <th>Solapín</th>
                             <th>Nombre y Apellidos</th>
                             <th>Grupo</th>
                             <th class="text-center">Indisciplinas</th>
                         </tr>
                         <tr *ngFor="let sancionado of ultimosdiez">
                             <td class="text-center"><img src="{{solapin + sancionado.solapin}}" alt="" width="47px"></td>
-                            <td>{{sancionado.solapin}}</td>
                             <td>{{sancionado.nombre_completo}}</td>
                             <td class="text-center">{{sancionado.grupo}}</td>
                             <td class="text-center">{{sancionado.indisciplinas.length}}</td>
