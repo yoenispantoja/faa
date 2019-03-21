@@ -362,6 +362,7 @@ var AddIndisciplinaComponent = /** @class */ (function () {
         this.myServicioSancionados = myServicioSancionados;
         this.ruta = ruta;
         this.implicados = [];
+        this.currentDemandante = '';
         this.solapinDemandante = '';
         this.cargoDemandante = '';
         this.currentSancionado = '';

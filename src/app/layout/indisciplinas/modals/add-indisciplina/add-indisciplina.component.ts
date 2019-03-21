@@ -32,6 +32,7 @@ export class AddIndisciplinaComponent implements OnInit {
   demandantes: {};
   sancionados: {};
 
+  currentDemandante: string = '';
   solapinDemandante: string = '';
   cargoDemandante: string = '';
   selectedDemandante: string;
