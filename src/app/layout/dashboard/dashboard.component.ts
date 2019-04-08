@@ -42,8 +42,8 @@ export class DashboardComponent implements OnInit {
         {
           ticks: {
             beginAtZero: true,
-            stepSize: 2,
-            max: 16
+            stepSize: 10,
+            max: 100
           }
         }
       ],
