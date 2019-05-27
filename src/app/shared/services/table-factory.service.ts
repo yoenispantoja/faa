@@ -43,7 +43,8 @@ export class TableFactoryService {
         //Pasando el token de seguridad
         'headers': { 'Authorization': 'YoenisToken' }
       },
-      responsive: true,
+      responsive: true, 
+      order: false,     
       //serverSide: true,
       processing: true,
       language: this.idioma_es,

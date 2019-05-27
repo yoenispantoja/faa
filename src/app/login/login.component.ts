@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
 
   onLoggedin() {
       
-      this.loginService.login(this.username, this.password).subscribe(data => {
+     /* this.loginService.login(this.username, this.password).subscribe(data => {
           if(data['id']) {
             localStorage.setItem('isLoggedin', 'true');
             localStorage.setItem('userLogged',data['name']);
@@ -35,7 +35,16 @@ export class LoginComponent implements OnInit {
           }
           else this.alertSwal.show();
       });
+*/
 
+    this.loginService.auth(this.username, this.password).subscribe(data => {
+      if (data['username']) {
+        localStorage.setItem('isLoggedin', 'true');
+        localStorage.setItem('userLogged', data['nombre_completo']);
+        this.ruta.navigate(['/dashboard']);
+      }
+      else this.alertSwal.show();
+    });
       
   }
 }
