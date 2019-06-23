@@ -1,25 +1,29 @@
 <div class="login-page" [@routerTransition]>
-    <div class="row justify-content-md-center">
-        <div class="col-md-4">
-            <img src="assets/images/LogoCITEC.jpg" width="150px" class="user-avatar" />
-            <br>
-            <h3>Sistema de Control Disciplinario</h3>
-            <form role="form">
-                <div class="form-content">
-                    <div class="form-group">
-                        <input type="text" [(ngModel)]="username" class="form-control input-underline input-lg" name="username" placeholder="{{ 'Usuario' | translate }}">
-                    </div>
+  <div class="row justify-content-md-center">
+    <div class="col-md-4">
+      <img src="assets/images/LogoCITEC.jpg" width="150px" class="user-avatar" />
+      <br>
+      <h3>Sistema de Control Disciplinario</h3>
+      <form role="form" (ngSubmit)="onLoggedin()">
+        <div class="form-content">
+          <div class="form-group">
+            <input type="text" [(ngModel)]="username" class="form-control input-underline input-lg" name="username"
+              placeholder="{{ 'Usuario' | translate }}">
+          </div>
 
-                    <div class="form-group">
-                        <input type="password" [(ngModel)]="password" class="form-control input-underline input-lg" name="password" placeholder="{{ 'Password' | translate }}">
-                    </div>
-                </div>
-                <a class="btn rounded-btn" (click)="onLoggedin()">{{ 'Log in' | translate }}</a> &nbsp;
-
-            </form>
+          <div class="form-group">
+            <input type="password" [(ngModel)]="password" class="form-control input-underline input-lg" name="password"
+              placeholder="{{ 'Password' | translate }}">
+          </div>
         </div>
+        <button type="submit" class="btn rounded-btn">{{ 'Log in' | translate }}</button>
+        <!--<a class="btn rounded-btn" (click)="onLoggedin()" (ng-)>{{ 'Log in' | translate }}</a> &nbsp;-->
+
+      </form>
     </div>
+  </div>
 </div>
 
-<swal #alertSwal title="Credenciales incorrectas" text="Por favor, intente nuevamente" type="warning" [showCancelButton]="false" [focusCancel]="true">
+<swal #alertSwal title="Credenciales incorrectas" text="Por favor, intente nuevamente" type="warning"
+  [showCancelButton]="false" [focusCancel]="true">
 </swal>

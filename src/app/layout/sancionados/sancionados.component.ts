@@ -1,6 +1,6 @@
 import { routerTransition } from '../../router.animations';
 import { Component, OnInit, Renderer, ViewChild, OnDestroy, AfterViewInit } from '@angular/core';
-      
+
 import { SancionadosService } from '../../shared/services/sancionados.service';
 import { TableFactoryService } from '../../shared/services/table-factory.service';
 import { DataTableDirective } from 'angular-datatables';
@@ -11,8 +11,7 @@ import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-
-var urlSolapin = "http://directorio.uci.cu/sites/all/modules/custom/directorio_de_personas/display_foto.php?id=";
+var urlSolapin = 'http://directorio.uci.cu/sites/all/modules/custom/directorio_de_personas/display_foto.php?id=';
 
 @Component({
   selector: 'app-sancionados',
@@ -129,7 +128,7 @@ export class SancionadosComponent implements AfterViewInit, OnDestroy, OnInit {
         solapin: [row.solapin, [Validators.required]],
         grupo: [row.grupo, [Validators.required]]
       });
-      
+
       this.modalService.open(this.modalSancionado).result.then(
         result => {
           this.closeResult = `Closed with: ${result}`;

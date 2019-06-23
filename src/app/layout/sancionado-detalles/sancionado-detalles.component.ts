@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { routerTransition } from '../../router.animations';
 import { SancionadosService } from 'src/app/shared/services/sancionados.service';
 import { CategoriasService } from 'src/app/shared/services/categorias.service';
@@ -6,8 +6,7 @@ import { CategoriasService } from 'src/app/shared/services/categorias.service';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { environment } from '../../../environments/environment';
 
-
-var urlSolapin = "http://directorio.uci.cu/sites/all/modules/custom/directorio_de_personas/display_foto.php?id=";
+var urlSolapin = 'http://directorio.uci.cu/sites/all/modules/custom/directorio_de_personas/display_foto.php?id=';
 
 @Component({
   selector: 'app-sancionado-detalles',
@@ -22,6 +21,7 @@ export class SancionadoDetallesComponent implements OnInit {
   nombreSancionado: string;
   indisciplinas: {};
   urlPrint = environment.apiUrl + '/imprimir_ficha_sancionado/'; //url del servicio del API
+  closeResult: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -48,11 +48,7 @@ export class SancionadoDetallesComponent implements OnInit {
     return this.categorias[id - 1]['nombre'];
   }
 
-  VerIndisciplina(idIndisciplina: number): void {
-    this.router.navigate(['indisciplina-detalles', { id: idIndisciplina }]);
-  }
-
-  ExportarFicha(id:number):void{
+  ExportarFicha(id: number): void {
     var url = this.urlPrint + id;
     window.location.href = url;
   }

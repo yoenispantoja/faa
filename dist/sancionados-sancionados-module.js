@@ -106,7 +106,7 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
-var urlSolapin = "http://directorio.uci.cu/sites/all/modules/custom/directorio_de_personas/display_foto.php?id=";
+var urlSolapin = 'http://directorio.uci.cu/sites/all/modules/custom/directorio_de_personas/display_foto.php?id=';
 var SancionadosComponent = /** @class */ (function () {
     //métodos
     function SancionadosComponent(myServicio, myTabla, ruta, modalService, formBuilder) {
@@ -167,6 +167,7 @@ var SancionadosComponent = /** @class */ (function () {
         this.sancionados = this.myServicio.getSancionados().subscribe(function (data) {
             _this.sancionados = data; //lleno los sancionados desde el servicio
         });
+        alert(location.hostname);
         this.dtOptions = this.myTabla.getDataTable(this.url, this.columnas, this.titulo, this.orientacion);
         //Evento click del botón <detalles>
         $(document).on('click', '#btnDetalles', function ($event) {

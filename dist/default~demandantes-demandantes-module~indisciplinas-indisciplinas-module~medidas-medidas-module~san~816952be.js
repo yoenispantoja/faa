@@ -229,6 +229,7 @@ var TableFactoryService = /** @class */ (function () {
                 'headers': { 'Authorization': 'YoenisToken' }
             },
             responsive: true,
+            order: false,
             //serverSide: true,
             processing: true,
             language: this.idioma_es,

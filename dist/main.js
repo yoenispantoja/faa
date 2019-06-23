@@ -753,10 +753,13 @@ __webpack_require__.r(__webpack_exports__);
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
+function Host() {
+    return location.hostname;
+}
 var environment = {
     production: false,
-    apiUrl: "http://localhost:8000/api"
-    //apiUrl: 'http://10.34.32.245:5800/faa/api/public/api'
+    apiUrl: 'http://localhost:8000/api'
+    //apiUrl: 'http://10.34.32.230:5800/api/public/api'
 };
 /*
  * For easier debugging in development mode, you can import the following file

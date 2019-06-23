@@ -51,7 +51,7 @@ var LoginRoutingModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"login-page\" [@routerTransition]>\r\n    <div class=\"row justify-content-md-center\">\r\n        <div class=\"col-md-4\">\r\n            <img src=\"assets/images/LogoCITEC.jpg\" width=\"150px\" class=\"user-avatar\" />\r\n            <br>\r\n            <h3>Sistema de Control Disciplinario</h3>\r\n            <form role=\"form\">\r\n                <div class=\"form-content\">\r\n                    <div class=\"form-group\">\r\n                        <input type=\"text\" [(ngModel)]=\"username\" class=\"form-control input-underline input-lg\" name=\"username\" placeholder=\"{{ 'Usuario' | translate }}\">\r\n                    </div>\r\n\r\n                    <div class=\"form-group\">\r\n                        <input type=\"password\" [(ngModel)]=\"password\" class=\"form-control input-underline input-lg\" name=\"password\" placeholder=\"{{ 'Password' | translate }}\">\r\n                    </div>\r\n                </div>\r\n                <a class=\"btn rounded-btn\" (click)=\"onLoggedin()\">{{ 'Log in' | translate }}</a> &nbsp;\r\n\r\n            </form>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n<swal #alertSwal title=\"Credenciales incorrectas\" text=\"Por favor, intente nuevamente\" type=\"warning\" [showCancelButton]=\"false\" [focusCancel]=\"true\">\r\n</swal>"
+module.exports = "<div class=\"login-page\" [@routerTransition]>\r\n  <div class=\"row justify-content-md-center\">\r\n    <div class=\"col-md-4\">\r\n      <img src=\"assets/images/LogoCITEC.jpg\" width=\"150px\" class=\"user-avatar\" />\r\n      <br>\r\n      <h3>Sistema de Control Disciplinario</h3>\r\n      <form role=\"form\" (ngSubmit)=\"onLoggedin()\">\r\n        <div class=\"form-content\">\r\n          <div class=\"form-group\">\r\n            <input type=\"text\" [(ngModel)]=\"username\" class=\"form-control input-underline input-lg\" name=\"username\"\r\n              placeholder=\"{{ 'Usuario' | translate }}\">\r\n          </div>\r\n\r\n          <div class=\"form-group\">\r\n            <input type=\"password\" [(ngModel)]=\"password\" class=\"form-control input-underline input-lg\" name=\"password\"\r\n              placeholder=\"{{ 'Password' | translate }}\">\r\n          </div>\r\n        </div>\r\n        <button type=\"submit\" class=\"btn rounded-btn\">{{ 'Log in' | translate }}</button>\r\n        <!--<a class=\"btn rounded-btn\" (click)=\"onLoggedin()\" (ng-)>{{ 'Log in' | translate }}</a> &nbsp;-->\r\n\r\n      </form>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<swal #alertSwal title=\"Credenciales incorrectas\" text=\"Por favor, intente nuevamente\" type=\"warning\"\r\n  [showCancelButton]=\"false\" [focusCancel]=\"true\">\r\n</swal>\r\n"
 
 /***/ }),
 
@@ -111,11 +111,20 @@ var LoginComponent = /** @class */ (function () {
     }
     LoginComponent.prototype.ngOnInit = function () { };
     LoginComponent.prototype.onLoggedin = function () {
+        /* this.loginService.login(this.username, this.password).subscribe(data => {
+             if(data['id']) {
+               localStorage.setItem('isLoggedin', 'true');
+               localStorage.setItem('userLogged',data['name']);
+               this.ruta.navigate(['/dashboard']);
+             }
+             else this.alertSwal.show();
+         });
+   */
         var _this = this;
-        this.loginService.login(this.username, this.password).subscribe(function (data) {
-            if (data['id']) {
+        this.loginService.auth(this.username, this.password).subscribe(function (data) {
+            if (data['username']) {
                 localStorage.setItem('isLoggedin', 'true');
-                localStorage.setItem('userLogged', data['name']);
+                localStorage.setItem('userLogged', data['nombre_completo']);
                 _this.ruta.navigate(['/dashboard']);
             }
             else
@@ -222,14 +231,23 @@ var LoginService = /** @class */ (function () {
     function LoginService(myHttp) {
         this.myHttp = myHttp;
         this.urlLogin = _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].apiUrl + '/login_user'; //url del servicio del API
+        this.urlLoginLDAP = _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].apiUrl + '/auth'; //url del servicio del API
     }
-    //Devuelve la lista de los categorias
+    //Autentica
     LoginService.prototype.login = function (username, password) {
         var user = {
             username: username,
             password: password
         };
         return this.myHttp.post(this.urlLogin, user);
+    };
+    //Autentica por ldap
+    LoginService.prototype.auth = function (username, password) {
+        var user = {
+            username: username,
+            password: password
+        };
+        return this.myHttp.post(this.urlLoginLDAP, user);
     };
     LoginService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
