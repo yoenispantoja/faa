@@ -50,7 +50,7 @@
         "font-awesome": "4.7.0",
         "jquery": "^3.3.1",
         "jszip": "^3.1.5",
-        "lodash": "^4.17.11",
+        "lodash": "^4.17.13",
         "ng2-archwizard": "^2.1.0",
         "ng2-charts": "1.6.0",
         "ngx-soap": "^0.6.0",
