@@ -1,6 +1,6 @@
 import { routerTransition } from '../../router.animations';
 import { Component, OnInit, Renderer, ViewChild, OnDestroy, AfterViewInit, TemplateRef } from '@angular/core';
-      
+
 import { DemandantesService } from '../../shared/services/demandantes.service';
 import { TableFactoryService } from '../../shared/services/table-factory.service';
 import { DataTableDirective } from 'angular-datatables';
@@ -10,9 +10,8 @@ import { environment } from '../../../environments/environment';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-
 import { Router } from '@angular/router';
-var urlSolapin = "http://directorio.uci.cu/sites/all/modules/custom/directorio_de_personas/display_foto.php?id=";
+var urlSolapin = 'http://directorio.uci.cu/sites/all/modules/custom/directorio_de_personas/display_foto.php?id=';
 
 @Component({
   selector: 'app-demandantes',
@@ -27,8 +26,6 @@ export class DemandantesComponent implements AfterViewInit, OnDestroy, OnInit {
   @ViewChild('confirmSwal') private confirmSwal: SwalComponent;
 
   @ViewChild('modalDemandante') private modalDemandante: NgbModal;
-
-
 
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
@@ -45,7 +42,7 @@ export class DemandantesComponent implements AfterViewInit, OnDestroy, OnInit {
     {
       //columnas del dataTable
       data: 'id',
-      className: "text-center"
+      className: 'text-center'
     },
     {
       data: function(row, type, set) {
@@ -126,7 +123,6 @@ export class DemandantesComponent implements AfterViewInit, OnDestroy, OnInit {
       );
     });
 
-    
     //Evento click de la foto pequeña
     $(document).on('click', '.person-photo', $event => {
       let row = this.myTabla.getRowSelected();
@@ -143,9 +139,12 @@ export class DemandantesComponent implements AfterViewInit, OnDestroy, OnInit {
       let row = this.myTabla.getRowSelected();
       document.getElementById('hidden_' + row.id).style.display = 'none';
     });
-  }
 
-  
+    //Evento click del botón Eliminar
+    $(document).on('click', '#btnEliminarDemandante', $event => {
+      this.questionSwal.show();
+    });
+  }
 
   ngAfterViewInit(): void {
     this.dtTrigger.next();
@@ -179,6 +178,21 @@ export class DemandantesComponent implements AfterViewInit, OnDestroy, OnInit {
     );
     // alert(this.form.controls.nombre_completo.value);
     //this.form.reset();
+  }
+
+  eliminarRegistro(): void {
+    let row = this.myTabla.getRowSelected();
+    this.myServicio.deleteDemandante(row.id).subscribe(
+      data => {
+        if (data) {
+          this.successSwal.show();
+          this.rerender();
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   cerrarVentana() {

@@ -1,19 +1,23 @@
 <div [@routerTransition]>
-  <app-page-header [heading]="'Listado de demandantes'" [icon]="'fa-users'"></app-page-header>
+  <app-page-header [heading]="'Usuarios con credenciales en el sistema'" [icon]="'fa-users'"></app-page-header>
+  <div class="row">
+    <div class="col-md-2">
+      <app-add-usuario></app-add-usuario>
+    </div>
+  </div>
   <br>
   <div class="row">
     <div class="col-md-12">
       <div class="table-responsive">
-        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" id="tbDemandantes"
-          [ngClass]="'table table-bordered table-hover display nowrap'" *ngIf="demandantes" style="width:100%">
+        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" id="tbUsuarios"
+          [ngClass]="'table table-bordered table-hover display nowrap'" *ngIf="usuarios" style="width:100%">
           <thead>
             <tr>
-              <th>No</th>
-              <th>Foto</th>
-              <th>Nombre</th>
-              <th>Solapín</th>
-              <th>Cargo</th>
-              <th class="thOperations" width="30px"></th>
+              <th width="10px" class="thOperations"></th>
+              <th class="text-center">Usuario UCI</th>
+              <th class="text-center">Cargo</th>
+              <th class="text-center">Permiso</th>
+              <th class="thOperations" width="70px"></th>
             </tr>
           </thead>
         </table>
@@ -30,31 +34,32 @@
   </swal>
 
   <!-- Ventana modal-->
-  <ng-template #modalDemandante let-c="close" let-d="dismiss">
+  <ng-template #modalUsuario let-c="close" let-d="dismiss">
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <div class="modal-header bg-info text-white">
-        <h5 class="modal-title"><i class="fa fa-user"></i> Editar datos del demandante</h5>
+        <h5 class="modal-title"><i class="fa fa-user"></i> Editar usuario</h5>
         <button type="button" class="close" aria-label="Close" (click)="c('Cross click')">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <div class="form-group">
-          <label for="">Nombre completo</label>
+          <label for="">Usuario</label>
           <input type="hidden" formControlName="id">
-          <input type="text" formControlName="nombre_completo" class="form-control" placeholder="Nombre completo"
-            aria-describedby="helpId">
-        </div>
-        <div class="form-group">
-          <label for="">Solapin</label>
-          <input type="text" formControlName="solapin" class="form-control" placeholder="Solapin"
+          <input type="text" formControlName="usuario_uci" class="form-control" placeholder="Usuario"
             aria-describedby="helpId">
         </div>
         <div class="form-group">
           <label for="">Cargo</label>
+          <input type="hidden" formControlName="id">
           <input type="text" formControlName="cargo" class="form-control" placeholder="Cargo" aria-describedby="helpId">
         </div>
-
+        <div class="form-group">
+          <label for="">Permiso</label>
+          <input type="hidden" formControlName="id">
+          <input type="number" min="0" max="2" formControlName="permiso" class="form-control" placeholder="Permiso"
+            aria-describedby="helpId">
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" (click)="c('Close click')"><i class="fa fa-remove"
@@ -66,7 +71,9 @@
     </form>
   </ng-template>
 
-  <swal #confirmSwal title="Información" text="Registro actualizado" type="success" [showCancelButton]="false"
+
+
+  <swal #confirmSwal title="Información" text="Usuario actualizado" type="success" [showCancelButton]="false"
     [focusCancel]="true" (confirm)="cerrarVentana()">
   </swal>
 </div>

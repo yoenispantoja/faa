@@ -15,6 +15,7 @@ const routes: Routes = [
       { path: 'sancionado-detalles', loadChildren: './sancionado-detalles/sancionado-detalles.module#SancionadoDetallesModule' },
       { path: 'demandantes', loadChildren: './demandantes/demandantes.module#DemandantesModule' },
       { path: 'medidas', loadChildren: './medidas/medidas.module#MedidasModule' },
+      { path: 'usuarios', loadChildren: './usuarios/usuarios.module#UsuariosModule' },
       { path: 'charts', loadChildren: './charts/charts.module#ChartsModule' },
       { path: 'tables', loadChildren: './tables/tables.module#TablesModule' },
       { path: 'forms', loadChildren: './form/form.module#FormModule' },
@@ -27,7 +28,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
 })
 export class LayoutRoutingModule {}

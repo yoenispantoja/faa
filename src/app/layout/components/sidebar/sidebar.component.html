@@ -1,49 +1,50 @@
 <nav class="sidebar" [ngClass]="{sidebarPushRight: isActive, collapsed: collapsed}">
-    <div class="header badge badge-primary">MENÚ PRINCIPAL</div>
-    <div class="list-group">
-        <a routerLink="/dashboard" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-fw fa-home text-info"></i>
-            <span>Inicio</span>
-        </a>
-        <a routerLink="/indisciplinas" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-fw fa-fire text-info"></i>
-            <span>Indisciplinas</span>
-        </a>
-        <a routerLink="/sancionados" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-fw fa-users text-info"></i>
-            <span>Sancionados</span>
-        </a>
-        <a [routerLink]="['/demandantes']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-fw fa-user-secret text-info"></i>
-            <span>Demandantes</span>
-        </a>
-        <a [routerLink]="['/medidas']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-fw fa-gavel text-info"></i>
-            <span>Medidas</span>
-        </a>
+  <div class="header badge badge-primary">MENÚ PRINCIPAL</div>
+  <div class="list-group">
+    <a routerLink="/dashboard" [routerLinkActive]="['router-link-active']" class="list-group-item">
+      <i class="fa fa-fw fa-home text-info"></i>
+      <span>Inicio</span>
+    </a>
+    <a routerLink="/indisciplinas" [routerLinkActive]="['router-link-active']" class="list-group-item">
+      <i class="fa fa-fw fa-fire text-info"></i>
+      <span>Indisciplinas</span>
+    </a>
+    <a routerLink="/sancionados" [routerLinkActive]="['router-link-active']" class="list-group-item">
+      <i class="fa fa-fw fa-users text-info"></i>
+      <span>Sancionados</span>
+    </a>
+    <a [routerLink]="['/demandantes']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+      <i class="fa fa-fw fa-user-secret text-info"></i>
+      <span>Demandantes</span>
+    </a>
+    <a [routerLink]="['/medidas']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+      <i class="fa fa-fw fa-gavel text-info"></i>
+      <span>Medidas</span>
+    </a>
 
-    </div>
-    <div class="header badge badge-success">REPORTES</div>
+  </div>
+  <div class="header badge badge-success">REPORTES</div>
+  <div class="list-group">
+    <a (click)="GoIncidenciasCategoria()" class="list-group-item mouse-click">
+      <i class="fa fa-fw fa-print text-success"></i>
+      <span>Incidencias por Categoría</span>
+    </a>
+    <a (click)="GoTableroResumen()" class="list-group-item mouse-click">
+      <i class="fa fa-fw fa-print text-success"></i>
+      <span>Tablero resumen</span>
+    </a>
+  </div>
+  <div id="divAdmin" *ngIf="permiso==1">
+    <div class="header badge badge-danger">ADMINISTRACIÓN</div>
     <div class="list-group">
-        <a (click)="GoIncidenciasCategoria()" class="list-group-item mouse-click">
-            <i class="fa fa-fw fa-print text-success"></i>
-            <span>Incidencias por Categoría</span>
-        </a>
-        <a (click)="GoTableroResumen()" class="list-group-item mouse-click">
-            <i class="fa fa-fw fa-print text-success"></i>
-            <span>Tablero resumen</span>
-        </a>
-        <a [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-fw fa-print text-success"></i>
-            <span>Sanciones en proceso</span>
-        </a>
-        <a [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-fw fa-print text-success"></i>
-            <span>Sanciones procesadas</span>
-        </a>
+      <a [routerLink]="['/usuarios']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+        <i class="fa fa-fw fa-users text-danger"></i>
+        <span>Usuarios</span>
+      </a>
     </div>
-    <div class="toggle-button" [ngClass]="{collapsed: collapsed}" (click)="toggleCollapsed()">
-        <i class="fa fa-fw fa-angle-double-left"></i>
-        <span>Cerrar menú</span>
-    </div>
+  </div>
+  <div class="toggle-button" [ngClass]="{collapsed: collapsed}" (click)="toggleCollapsed()">
+    <i class="fa fa-fw fa-angle-double-left"></i>
+    <span>Cerrar menú</span>
+  </div>
 </nav>

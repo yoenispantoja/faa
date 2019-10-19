@@ -12,17 +12,15 @@ import { AppComponent } from './app.component';
 import { AuthGuard } from './shared';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
-
-
 // AoT requires an exported function for factories
 export const createTranslateLoader = (http: HttpClient) => {
-    /* for development
+  /* for development
     return new TranslateHttpLoader(
         http,
         '/start-angular/SB-Admin-BS4-Angular-6/master/dist/assets/i18n/',
         '.json'
     ); */
-    return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 };
 
 @NgModule({
@@ -31,7 +29,7 @@ export const createTranslateLoader = (http: HttpClient) => {
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    NgbModule.forRoot(),    
+    NgbModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -43,7 +41,6 @@ export const createTranslateLoader = (http: HttpClient) => {
   ],
   declarations: [AppComponent],
   providers: [AuthGuard, { provide: LocationStrategy, useClass: HashLocationStrategy }],
-  bootstrap: [AppComponent]  
-  
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

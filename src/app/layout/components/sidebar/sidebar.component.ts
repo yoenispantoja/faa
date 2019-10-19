@@ -9,6 +9,7 @@ import { environment } from '../../../../environments/environment';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
+  permiso: string;
   isActive: boolean;
   collapsed: boolean;
   showMenu: string;
@@ -36,6 +37,9 @@ export class SidebarComponent implements OnInit {
     this.collapsed = false;
     this.showMenu = '';
     this.pushRightClass = 'push-right';
+
+    this.permiso = localStorage.getItem('userPermiso');
+    console.log(this.permiso);
   }
 
   eventCalled() {

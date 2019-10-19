@@ -5,7 +5,6 @@ import { routerTransition } from '../router.animations';
 import { LoginService } from '../shared/services/login.service';
 import { SwalComponent } from '@toverux/ngx-sweetalert2'; //para los sweetAlerts
 
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -13,9 +12,9 @@ import { SwalComponent } from '@toverux/ngx-sweetalert2'; //para los sweetAlerts
   animations: [routerTransition()]
 })
 export class LoginComponent implements OnInit {
-   @ViewChild('alertSwal') private alertSwal: SwalComponent;
-    username= "";
-    password= "";
+  @ViewChild('alertSwal') private alertSwal: SwalComponent;
+  username = '';
+  password = '';
   constructor(private translate: TranslateService, public ruta: Router, private loginService: LoginService) {
     this.translate.addLangs(['en', 'fr', 'ur', 'es', 'it', 'fa', 'de', 'zh-CHS']);
     this.translate.setDefaultLang('en');
@@ -26,8 +25,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {}
 
   onLoggedin() {
-      
-     /* this.loginService.login(this.username, this.password).subscribe(data => {
+    /* this.loginService.login(this.username, this.password).subscribe(data => {
           if(data['id']) {
             localStorage.setItem('isLoggedin', 'true');
             localStorage.setItem('userLogged',data['name']);
@@ -38,13 +36,12 @@ export class LoginComponent implements OnInit {
 */
 
     this.loginService.auth(this.username, this.password).subscribe(data => {
-      if (data['username']) {
+      if (data['username'] && (data['permiso'] == 1 || data['permiso'] == 2)) {
         localStorage.setItem('isLoggedin', 'true');
         localStorage.setItem('userLogged', data['nombre_completo']);
+        localStorage.setItem('userPermiso', data['permiso']);
         this.ruta.navigate(['/dashboard']);
-      }
-      else this.alertSwal.show();
+      } else this.alertSwal.show();
     });
-      
   }
 }

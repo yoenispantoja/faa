@@ -1,0 +1,40 @@
+<button type="button" class="btn btn-sm btn-primary" (click)="open(modalUsuarioAdd)"> <i class=" fa fa-plus-circle"></i>
+  Nuevo usuario</button>
+<ng-template #modalUsuarioAdd let-c="close" let-d="dismiss">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="modal-header bg-info text-white">
+      <h5 class="modal-title"><i class="fa fa-user"></i> Nuevo usuario</h5>
+      <button type="button" class="close" aria-label="Close" (click)="c('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="">Usuario</label>
+        <input type="text" formControlName="usuario_uci" class="form-control" placeholder="Usuario del dominio"
+          aria-describedby="helpId">
+      </div>
+      <div class="form-group">
+        <label for="">Cargo</label>
+        <input type="text" formControlName="cargo" class="form-control" placeholder="Cargo que ocupa"
+          aria-describedby="helpId">
+      </div>
+      <div class="form-group">
+        <label for="">Permiso</label>
+        <input type="number" min="0" max="2" formControlName="permiso" class="form-control" placeholder="Permiso"
+          aria-describedby="helpId">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" (click)="c('Close click')"><i class="fa fa-remove"
+          aria-hidden="true"></i>
+        Cancelar</button>
+      <button type="submit" class="btn btn-primary" [disabled]="form.invalid"><i class="fa fa-save"></i>
+        Guardar</button>
+    </div>
+  </form>
+</ng-template>
+
+<swal #confirmSwal title="Información" text="Registro almacenado" type="success" [showCancelButton]="false"
+  [focusCancel]="true" (confirm)="cerrarVentana()">
+</swal>
