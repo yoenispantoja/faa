@@ -1,29 +1,13 @@
 <div [@routerTransition]>
     <app-page-header [heading]="'Listado de sancionados'" [icon]="'fa-users'"></app-page-header>
-    <br>
+    <br />
     <div class="row">
         <div class="col-md-12">
-            <div class="table-responsive">
-                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" id="tbSancionados" [ngClass]="'table table-bordered table-hover display nowrap'" *ngIf="sancionados" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Foto</th>
-                            <th>Nombre</th>
-                            <th>Solapín</th>
-                            <th>Grupo</th>
-                            <th>Sanciones</th>
-                            <th class="thOperations" width="50px"></th>
-                        </tr>
-                    </thead>
-                </table>
-            </div>
-
+            <scd-table #tablaBlank [titulo]="this.tituloTabla" [orientacionPage]="this.portrait" [urlApi]="this.urlTablaSancionados" [tieneOperaciones]="this.tieneOperaciones" [nombreColumnas]="this.nombreColumnas" [datosColumnas]="this.datosColumna"></scd-table>
         </div>
     </div>
 
-    <swal #successSwal title="Información" text="Registro eliminado" type="success" [showCancelButton]="false" [focusCancel]="true">
-    </swal>
+    <swal #successSwal title="Información" text="Registro eliminado" type="success" [showCancelButton]="false" [focusCancel]="true"> </swal>
 
     <swal #questionSwal title="Información" text="¿Está seguro de eliminar este registro?" type="question" [showCancelButton]="true" [focusCancel]="true" (confirm)="eliminarRegistro()">
     </swal>
@@ -34,34 +18,34 @@
             <div class="modal-header bg-info text-white">
                 <h5 class="modal-title"><i class="fa fa-user"></i> Editar datos del sancionado</h5>
                 <button type="button" class="close" aria-label="Close" (click)="c('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
+          <span aria-hidden="true">&times;</span>
+        </button>
             </div>
             <div class="modal-body">
                 <div class="form-group">
                     <label for="">Nombre completo</label>
-                    <input type="hidden" formControlName="id">
-                    <input type="text" formControlName="nombre_completo" class="form-control" placeholder="Nombre completo" aria-describedby="helpId">
+                    <input type="hidden" formControlName="id" />
+                    <input type="text" formControlName="nombre_completo" class="form-control" placeholder="Nombre completo" aria-describedby="helpId" />
                 </div>
                 <div class="form-group">
                     <label for="">Solapin</label>
-                    <input type="text" formControlName="solapin" class="form-control" placeholder="Solapin" aria-describedby="helpId">
+                    <input type="text" formControlName="solapin" class="form-control" placeholder="Solapin" aria-describedby="helpId" />
                 </div>
                 <div class="form-group">
                     <label for="">Grupo</label>
-                    <input type="text" formControlName="grupo" class="form-control" placeholder="Grupo" aria-describedby="helpId">
+                    <input type="text" formControlName="grupo" class="form-control" placeholder="Grupo" aria-describedby="helpId" />
                 </div>
-
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" (click)="c('Close click')"><i class="fa fa-remove" aria-hidden="true"></i>
-        Cancelar</button>
-                <button type="submit" class="btn btn-primary" [disabled]="form.invalid"><i class="fa fa-save"></i> Guardar</button>
+                <button type="button" class="btn btn-default" (click)="c('Close click')">
+          <i class="fa fa-remove" aria-hidden="true"></i> Cancelar
+        </button>
+                <button type="submit" class="btn btn-primary" [disabled]="form.invalid"><i class="fa fa-save"></i>
+          Guardar</button>
             </div>
         </form>
     </ng-template>
 
     <swal #confirmSwal title="Información" text="Registro actualizado" type="success" [showCancelButton]="false" [focusCancel]="true" (confirm)="cerrarVentana()">
     </swal>
-
 </div>

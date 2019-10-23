@@ -1,0 +1,11 @@
+<h4>{{ this.titulo }}</h4>
+<div class="table-responsive">
+    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" id="tbDemandantes" [ngClass]="'table table-bordered table-hover display nowrap'" style="width:100%">
+        <thead>
+            <tr>
+                <th *ngFor="let columna of this.nombreColumnas">{{ columna }}</th>
+                <th *ngIf="this.tieneOperaciones" class="thOperations" width="30px"></th>
+            </tr>
+        </thead>
+    </table>
+</div>

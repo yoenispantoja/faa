@@ -1,18 +1,12 @@
-<wizard>
-    <wizard-step stepTitle="Paso 1" [canExit]='true'>
-        Content of Step 1
-        <h1>Probando audio</h1>
-        <button type="button" class="btn btn-primary" nextStep>Next Step</button>
-    </wizard-step>
-    <wizard-step stepTitle="Paso 2" awOptionalStep>
-        <h2>Paso 2</h2>
-        <textarea name="" id="" cols="" rows="2"></textarea>
-        <button type="button" previousStep>Go to previous step</button>
-        <button type="button" nextStep>Go to next step</button>
-    </wizard-step>
-    <wizard-step stepTitle="Paso 3">
-        Contenido del paso 3
-        <button type="button" previousStep>Previous Step</button>
-        <button type="button" (click)="finishFunction()">Finish</button>
-    </wizard-step>
-</wizard>
+<scd-table #tablaBlank (verClick)="this.verClick($event)" (editClick)="this.editClick($event)" [titulo]="this.tituloTabla" [orientacionPage]="this.portrait" [urlApi]="this.urlTablaBlank" [tieneOperaciones]="this.tieneOperaciones" [nombreColumnas]="this.nombreColumnas"
+    [datosColumnas]="this.datosColumna" (eliminarClick)="this.eliminarClick($event)">
+</scd-table>
+
+<table class="table table-bordered table-striped table-responsive">
+    <tr *ngFor="let demandante of demandantes">
+        <td>{{ demandante.id }}</td>
+        <td>{{ demandante.nombre_completo }}</td>
+        <td>{{ demandante.solapin }}</td>
+        <td>{{ demandante.cargo }}</td>
+    </tr>
+</table>

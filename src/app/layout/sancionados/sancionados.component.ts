@@ -4,14 +4,15 @@ import { Component, OnInit, Renderer, ViewChild, OnDestroy, AfterViewInit } from
 import { SancionadosService } from '../../shared/services/sancionados.service';
 import { TableFactoryService } from '../../shared/services/table-factory.service';
 import { DataTableDirective } from 'angular-datatables';
-import { SweetAlert2Module, SwalComponent } from '@toverux/ngx-sweetalert2'; //para los sweetAlerts
+import { SweetAlert2Module, SwalComponent } from '@toverux/ngx-sweetalert2'; // para los sweetAlerts
 import { Subject } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DatosColumna } from 'src/app/shared/models/datosColumna';
 
-var urlSolapin = 'http://directorio.uci.cu/sites/all/modules/custom/directorio_de_personas/display_foto.php?id=';
+const urlSolapin = 'http://directorio.uci.cu/sites/all/modules/custom/directorio_de_personas/display_foto.php?id=';
 
 @Component({
   selector: 'app-sancionados',
@@ -20,7 +21,7 @@ var urlSolapin = 'http://directorio.uci.cu/sites/all/modules/custom/directorio_d
   animations: [routerTransition()]
 })
 export class SancionadosComponent implements AfterViewInit, OnDestroy, OnInit {
-  //atributos
+  // atributos
   @ViewChild('questionSwal') private questionSwal: SwalComponent;
   @ViewChild('successSwal') private successSwal: SwalComponent;
   @ViewChild('confirmSwal') private confirmSwal: SwalComponent;
@@ -28,72 +29,31 @@ export class SancionadosComponent implements AfterViewInit, OnDestroy, OnInit {
   @ViewChild('modalSancionado') private modalSancionado: NgbModal;
 
   @ViewChild(DataTableDirective)
+  tituloTabla: string;
+  urlTablaSancionados: string;
+  portrait: string;
+  tieneOperaciones: boolean;
+  nombreColumnas: string[] = [];
+  datosColumna: DatosColumna[] = [];
+
   dtElement: DataTableDirective;
 
   sancionados: {};
 
-  dtOptions: {}; //opciones para el dataTable
+  dtOptions: {}; // opciones para el dataTable
   dtTrigger: any = new Subject();
 
-  row: any; //para la fila seleccionada
+  row: any; // para la fila seleccionada
 
-  //**** Parámetros del dataTable */
-  columnas = [
-    {
-      //columnas del dataTable
-      data: 'id',
-      className: 'text-center'
-    },
-    {
-      data: function(row, type, set) {
-        return (
-          '<img class="person-photo" width="45px" src="' +
-          urlSolapin +
-          row.solapin +
-          '"><div id="hidden_' +
-          row.id +
-          '" class="person-original-photo-link photo-estudiante photo-hidden"><img width="200" height="200" src="' +
-          urlSolapin +
-          row.solapin +
-          '"/></div>'
-        );
-      }
-    },
-    {
-      data: 'nombre_completo'
-    },
-    {
-      data: 'solapin',
-      className: 'text-center'
-    },
-    {
-      data: 'grupo',
-      className: 'text-center'
-    },
-    {
-      data: function(row, type, set) {
-        return row.indisciplinas.length;
-      },
-      className: 'text-center'
-    },
-
-    {
-      defaultContent:
-        "<button type='button' id='btnDetalles' class='btn btn-sm btn-info btn-detail' title='Ver detalles'><i class='fa fa-search-plus vermas'></i></button> <button type='button' id='btnEditarSancionado' (click)='open(content)' class='btn btn-sm btn-warning btn-detail' title='Editar'><i class='fa fa-edit vermas'></i></button> <button type='button' id='btnEliminar' class='btn btn-sm btn-danger btn-detail' title='Eliminar'><i class='fa fa-trash vermas'></i></button>"
-    }
-  ];
-
-  url = environment.apiUrl + '/sancionados'; //url del servicio del API
-  titulo = 'Listado de sancionados'; //titulo del documento que se exportará
-  orientacion = 'Portrait'; //orientación de la página del documento que se exportará
+  url = environment.apiUrl + '/sancionados'; // url del servicio del API
+  titulo = 'Listado de sancionados'; // titulo del documento que se exportará
+  orientacion = 'Portrait'; // orientación de la página del documento que se exportará
   closeResult: string;
 
-  name: string = 'Yoenis Celedonio';
-
-  //Referente al formulario de edición
+  // Referente al formulario de edición
   public form: FormGroup;
 
-  //métodos
+  // métodos
   constructor(
     private myServicio: SancionadosService,
     private myTabla: TableFactoryService,
@@ -103,25 +63,65 @@ export class SancionadosComponent implements AfterViewInit, OnDestroy, OnInit {
   ) {}
 
   ngOnInit() {
+    //Llenando la tabla de Sancionados
+    this.tituloTabla = 'Tabla de Sancionados';
+    this.urlTablaSancionados = environment.apiUrl + '/sancionados';
+    this.portrait = 'Portrait'; // para la orientación de la página
+    this.tieneOperaciones = false;
+    this.nombreColumnas = ['id', 'Foto', 'Nombre Completo', 'Solapin', 'Grupo', 'Indisciplinas'];
+    this.datosColumna = [
+      {
+        data: 'id',
+        className: 'text-center'
+      },
+      {
+        data: (row, type, set) => {
+          return (
+            '<img class="person-photo" width="45px" src="https://p7.hiclipart.com/preview/312/283/679/avatar-computer-icons-user-profile-business-user-avatar.jpg"><div id="hidden_' +
+            row.id +
+            '" class="person-original-photo-link photo-estudiante photo-hidden"><img width="200" height="200" src="https://p7.hiclipart.com/preview/312/283/679/avatar-computer-icons-user-profile-business-user-avatar.jpg"/></div>'
+          );
+        }
+      },
+      {
+        data: 'nombre_completo'
+      },
+      {
+        data: 'solapin',
+        className: 'text-center'
+      },
+      {
+        data: 'grupo',
+        className: 'text-center'
+      },
+      {
+        data: (row, type, set) => {
+          return row.indisciplinas.length;
+        },
+        className: 'text-center'
+      }
+    ];
+
     this.sancionados = this.myServicio.getSancionados().subscribe(data => {
-      this.sancionados = data; //lleno los sancionados desde el servicio
+      // debugger;
+      // this.sancionados = data; //lleno los sancionados desde el servicio
     });
 
-    this.dtOptions = this.myTabla.getDataTable(this.url, this.columnas, this.titulo, this.orientacion);
+    this.dtOptions = this.myTabla.getDataTable(this.url, this.datosColumna, this.titulo, this.orientacion);
 
-    //Evento click del botón <detalles>
+    // Evento click del botón <detalles>
     $(document).on('click', '#btnDetalles', $event => {
-      let row = this.myTabla.getRowSelected();
-      //Redirigir a otra ruta pasándole el id
+      const row = this.myTabla.getRowSelected();
+      // Redirigir a otra ruta pasándole el id
       this.ruta.navigate(['/sancionado-detalles', { id: row.id }]);
     });
 
-    //Evento click del botón Editar
+    // Evento click del botón Editar
     $(document).on('click', '#btnEditarSancionado', $event => {
-      let row = this.myTabla.getRowSelected();
-      //console.log(row.id);
+      const row = this.myTabla.getRowSelected();
+      // console.log(row.id);
 
-      //Elementos del formulario
+      // Elementos del formulario
       this.form = this.formBuilder.group({
         id: [row.id],
         nombre_completo: [row.nombre_completo, [Validators.required]],
@@ -140,32 +140,32 @@ export class SancionadosComponent implements AfterViewInit, OnDestroy, OnInit {
       );
     });
 
-    //Evento click del botón Eliminar
+    // Evento click del botón Eliminar
     $(document).on('click', '#btnEliminar', $event => {
-      let row = this.myTabla.getRowSelected();
+      const row = this.myTabla.getRowSelected();
       this.questionSwal.show();
     });
 
-    //Evento click de la foto pequeña
+    // Evento click de la foto pequeña
     $(document).on('click', '.person-photo', $event => {
-      let row = this.myTabla.getRowSelected();
-      //cerrando todas las abiertas
-      let divs = document.getElementsByClassName('photo-hidden');
-      for (var i = 0; i < divs.length; i++) {
+      const row = this.myTabla.getRowSelected();
+      // cerrando todas las abiertas
+      const divs = document.getElementsByClassName('photo-hidden');
+      for (let i = 0; i < divs.length; i++) {
         divs[i].setAttribute('style', "display = 'none'");
       }
       document.getElementById('hidden_' + row.id).style.display = 'block';
     });
 
-    //Evento click de la foto grande
+    // Evento click de la foto grande
     $(document).on('click', '.photo-hidden', $event => {
-      let row = this.myTabla.getRowSelected();
+      const row = this.myTabla.getRowSelected();
       document.getElementById('hidden_' + row.id).style.display = 'none';
     });
   }
 
   eliminarRegistro(): void {
-    let row = this.myTabla.getRowSelected();
+    const row = this.myTabla.getRowSelected();
     this.myServicio.deleteSancionado(row.id).subscribe(
       data => {
         if (data) {
@@ -199,23 +199,23 @@ export class SancionadosComponent implements AfterViewInit, OnDestroy, OnInit {
 
   onSubmit() {
     const result: any = Object.assign({}, this.form.value);
-    let id = this.form.controls.id.value;
+    const id = this.form.controls.id.value;
     this.myServicio.editSancionado(id, result).subscribe(
       data => {
-        //respuesta correcta
+        // respuesta correcta
         this.confirmSwal.show();
       },
       error => {
-        //respuesta de error
+        // respuesta de error
       }
     );
     // alert(this.form.controls.nombre_completo.value);
-    //this.form.reset();
+    // this.form.reset();
   }
 
   cerrarVentana() {
     this.modalService.dismissAll();
-    //Refrescar la vista
+    // Refrescar la vista
     this.ruta.navigate(['sancionados']);
   }
 }
